@@ -19,5 +19,10 @@ namespace ImageVisualizer
 
             imageControl.SetImage(objectProvider.GetObject());
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
