@@ -45,8 +45,6 @@ namespace ImageVisualizer
 
             if (sourceBitmap != null)
             {
-                
-
                 if (sourceBitmap is System.Drawing.Bitmap)
                 {
                     BitmapSource bitmap = null;
@@ -70,11 +68,18 @@ namespace ImageVisualizer
                         DeleteObject(hObject);
                     }
 
-                    image.Source = bitmap;
+                    DisplayImage.Width = bitmap.Width;
+                    DisplayImage.Height = bitmap.Height;
+
+                    DisplayImage.Source = bitmap;
+
+
+
+
                 }
                 else if (sourceBitmap is SerializableBitmapImage)
                 {
-                    image.Source = (SerializableBitmapImage)sourceBitmap;
+                    DisplayImage.Source = (SerializableBitmapImage)sourceBitmap;
                 }
 
 
@@ -100,5 +105,45 @@ namespace ImageVisualizer
         [DllImport("gdi32")]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool DeleteObject(IntPtr hObject);
+
+        double _zoomValue = 1.0;
+
+        private void DisplayImage_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            //if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            //{
+            //    if (e.Delta > 0)
+            //    {
+            //        _zoomValue += 0.1;
+            //    }
+            //    else
+            //    {
+            //        _zoomValue -= 0.1;
+            //    }
+
+            //    ScaleTransform scale = new ScaleTransform(_zoomValue, _zoomValue);
+            //    DisplayImage.LayoutTransform = scale;
+
+            //}
+
+            //e.Handled = true;
+
+            //if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+            //{
+                var matrix = DisplayImage.LayoutTransform.Value;
+
+                if (e.Delta > 0)
+                {
+                    matrix.ScaleAt(1.5, 1.5, e.GetPosition(this).X, e.GetPosition(this).Y);
+                }
+                else
+                {
+                    matrix.ScaleAt(1.0 / 1.5, 1.0 / 1.5, e.GetPosition(this).X, e.GetPosition(this).Y);
+                }
+
+                DisplayImage.LayoutTransform = new MatrixTransform(matrix); 
+            //}
+        }
+
     }
 }
