@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer x:Name="DisplayScroll" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollChanged="ScrollViewer_ScrollChanged">
             <Image x:Name="DisplayImage" MouseWheel="DisplayImage_MouseWheel" />
         </ScrollViewer>
 

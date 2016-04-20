@@ -25,6 +25,10 @@ namespace ImageVisualizer
     /// </summary>
     public partial class ImageControl : UserControl
     {
+        Point? lastCenterPositionOnTarget;
+        Point? lastMousePositionOnTarget;
+        Point? lastDragPoint;
+
         public ImageControl()
         {
             InitializeComponent();
@@ -131,19 +135,67 @@ namespace ImageVisualizer
             //if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
             //{
                 var matrix = DisplayImage.LayoutTransform.Value;
+                Point p = e.MouseDevice.GetPosition(DisplayImage);
 
-                if (e.Delta > 0)
+            if (e.Delta > 0)
                 {
-                    matrix.ScaleAt(1.5, 1.5, e.GetPosition(this).X, e.GetPosition(this).Y);
+                    matrix.ScaleAt(1.1, 1.1, p.X, p.Y);
                 }
                 else
                 {
-                    matrix.ScaleAt(1.0 / 1.5, 1.0 / 1.5, e.GetPosition(this).X, e.GetPosition(this).Y);
+                    matrix.ScaleAt(1.0 / 1.1, 1.0 / 1.1, p.X, p.Y);
                 }
 
                 DisplayImage.LayoutTransform = new MatrixTransform(matrix); 
             //}
         }
 
+        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (e.ExtentHeightChange != 0 || e.ExtentWidthChange != 0)
+            {
+                Point? targetBefore = null;
+                Point? targetNow = null;
+
+                if (!lastMousePositionOnTarget.HasValue)
+                {
+                    if (lastCenterPositionOnTarget.HasValue)
+                    {
+                        var centerOfViewport = new Point(DisplayScroll.ViewportWidth / 2, DisplayScroll.ViewportHeight / 2);
+                        Point centerOfTargetNow = DisplayScroll.TranslatePoint(centerOfViewport, DisplayImage);
+
+                        targetBefore = lastCenterPositionOnTarget;
+                        targetNow = centerOfTargetNow;
+                    }
+                }
+                else
+                {
+                    targetBefore = lastMousePositionOnTarget;
+                    targetNow = Mouse.GetPosition(DisplayImage);
+
+                    lastMousePositionOnTarget = null;
+                }
+
+                if (targetBefore.HasValue)
+                {
+                    double dXInTargetPixels = targetNow.Value.X - targetBefore.Value.X;
+                    double dYInTargetPixels = targetNow.Value.Y - targetBefore.Value.Y;
+
+                    double multiplicatorX = e.ExtentWidth / DisplayImage.Width;
+                    double multiplicatorY = e.ExtentHeight / DisplayImage.Height;
+
+                    double newOffsetX = DisplayScroll.HorizontalOffset - dXInTargetPixels * multiplicatorX;
+                    double newOffsetY = DisplayScroll.VerticalOffset - dYInTargetPixels * multiplicatorY;
+
+                    if (double.IsNaN(newOffsetX) || double.IsNaN(newOffsetY))
+                    {
+                        return;
+                    }
+
+                    DisplayScroll.ScrollToHorizontalOffset(newOffsetX);
+                    DisplayScroll.ScrollToVerticalOffset(newOffsetY);
+                }
+            }
+        }
     }
 }
