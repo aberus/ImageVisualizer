@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-[assembly: System.Diagnostics.DebuggerVisualizer(typeof(ImageVisualizer.Visualizer), typeof(VisualizerObjectSource), Target = typeof(System.Drawing.Image), Description = "Image Visualizer")]
+[assembly: System.Diagnostics.DebuggerVisualizer(typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Drawing.Image), Description = "Image Visualizer")]
 [assembly: System.Diagnostics.DebuggerVisualizer(typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Windows.Media.ImageSource), Description = "Image Visualizer")]
 //[assembly: System.Diagnostics.DebuggerVisualizer(typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Windows.Media.Imaging.BitmapImage), Description = "Image Visualizer")]
 
@@ -29,5 +29,13 @@ namespace ImageVisualizer
                 windowService.ShowDialog(imageForm);
             }
         }
+
+#if DEBUG
+        public static void TestShowVisualizer(object objectToVisualize)
+        {
+            var visualizerHost = new VisualizerDevelopmentHost(objectToVisualize, typeof(Visualizer), typeof(ImageVisualizerObjectSource));
+            visualizerHost.ShowVisualizer();
+        }
+#endif
     }
 }
