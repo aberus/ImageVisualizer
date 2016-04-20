@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -48,15 +49,26 @@ namespace ImageVisualizer
 
                 if (sourceBitmap is System.Drawing.Bitmap)
                 {
+                    BitmapSource bitmap = null;
+
                     IntPtr hObject = ((System.Drawing.Bitmap)sourceBitmap).GetHbitmap();
 
-                    var bitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                           hObject,
-                           IntPtr.Zero,
-                           System.Windows.Int32Rect.Empty,
-                           BitmapSizeOptions.FromEmptyOptions());
-
-                    DeleteObject(hObject);
+                    try
+                    {
+                        bitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                               hObject,
+                               IntPtr.Zero,
+                               Int32Rect.Empty,
+                               BitmapSizeOptions.FromEmptyOptions());
+                    }
+                    catch(Win32Exception)
+                    {
+                        bitmap = null;
+                    }
+                    finally
+                    {
+                        DeleteObject(hObject);
+                    }
 
                     image.Source = bitmap;
                 }
@@ -86,6 +98,7 @@ namespace ImageVisualizer
         }
 
         [DllImport("gdi32")]
-        static extern int DeleteObject(IntPtr hObject);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool DeleteObject(IntPtr hObject);
     }
 }

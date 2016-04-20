@@ -33,11 +33,16 @@ namespace ImageVisualizer
                         var array = (byte[])i.Value;
                         if (array != null)
                         {
-                            image = new BitmapImage();
-                            image.BeginInit();
-                            image.StreamSource = new MemoryStream(array);
-                            image.EndInit();
-                            image.Freeze();
+                            using (MemoryStream stream = new MemoryStream(array))
+                            {
+                                stream.Position = 0;
+                                image = new BitmapImage();
+                                image.CacheOption = BitmapCacheOption.OnLoad;
+                                image.BeginInit();
+                                image.StreamSource = new MemoryStream(array);
+                                image.EndInit();
+                                image.Freeze();
+                            }
                         }
                     }
                     catch
