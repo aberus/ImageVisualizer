@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define ProductVersion = "0.0.1"?>
+<?define ProductUpgradeCode = "5a2e7ccd-6ced-4a6b-9745-d8d73ed070cc"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:a="http://schemas.microsoft.com/wix/VSExtension">
+  <Product Id="*" Name="SetupVisualizer" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Aleksander Berus" UpgradeCode="$(var.ProductUpgradeCode)">
+
+    <Package InstallerVersion="400" Compressed="yes" InstallPrivileges="elevated" InstallScope="perMachine" Platform="x86" />
+
+    <!--<Icon Id="icon.ico" SourceFile="MySourceFiles\icon.ico"/>
+      <Property Id="ARPPRODUCTICON" Value="icon.ico" />-->
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    
+    <!--<Upgrade Id="$(var.ProductUpgradeCode)">
+         <UpgradeVersion Minimum="$(var.ProductVersion)" OnlyDetect="yes" Property="NEWERVERSIONDETECTED"/>
+         <UpgradeVersion Minimum="0.0.0" Maximum="$(var.ProductVersion)" IncludeMinimum="yes" IncludeMaximum="no" Property="OLDERVERSIONBEINGUPGRADED"/>	  
+    </Upgrade>
+    <Condition Message="A newer version of this software is already installed.">NOT NEWERVERSIONDETECTED</Condition>-->
+    
+    
+    
+    <Property Id="USERNAME" Value="1"/>
+    <!--<Property Id="ADDLOCAL" Value="ProductFeature,ProductFeature1,ProductFeature2" />-->
+    
+    
+    <!--<Icon Id="myIcon" SourceFile="..\myIcon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="myIcon" />
+    <Property Id="ARPCOMMENTS" Value="(c) Amazing Software" />
+    <Property Id="ARPNOREPAIR" Value="1" />
+          <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />    Remove repair 
+    <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />     Remove modify 
+    <Property Id="ARPCONTACT" Value="Nick Ramirez" />
+    <Property Id="ARPHELPLINK" Value="http://www.MYURL.com/AmazingSoftware/support.html"/>
+    <Property Id="ARPREADME" Value="http://www.MYURL.com/AmazingSoftware/readme.html" />-->
+    
+    <!--<WixVariable Id="WixUILicenseRtf" Value="newLicense.rtf" />-->
+    <WixVariable Id="WixUIBannerBmp" Value="bannrbmp.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp" />
+    
+    
+
+    
+    <PropertyRef Id="VS2010_ROOT_FOLDER" />
+    <PropertyRef Id="VS2012_ROOT_FOLDER" />
+    <PropertyRef Id="VS2013_ROOT_FOLDER" />
+    <PropertyRef Id="VS2015_ROOT_FOLDER" />
+    
+    <PropertyRef Id="VS2010DEVENV" />
+    <PropertyRef Id="VS2012DEVENV" />
+    <PropertyRef Id="VS2013DEVENV" />
+    <PropertyRef Id="VS2015DEVENV" />
+
+    <!-- Custom action to block install if a Visual Studio 2005 or 2008 --><!--
+    --><!-- edition is not installed on the user's system.                 --><!--
+    <CustomAction Id="CA_BlockIfVSIsNotInstalled" Error="!(loc.LaunchCondition_MissingVS)" />
+
+    <Condition Message="!(loc.LaunchCondition_AdminPrivs)">
+      <![CDATA[Privileged]]>
+    </Condition>-->
+    
+    <Feature Id="ProductFeature" Title="Install Image Visualizer for" Display="expand"  InstallDefault="local" Absent="disallow" AllowAdvertise="no">
+      <Feature Id="ProductFeature0" Title="Microsoft Visual Studio 2012" Level="2">
+        <Condition Level="1"><![CDATA[VS2012_ROOT_FOLDER AND VS2012DEVENV]]></Condition>
+        <ComponentGroupRef Id="Visualizer12Components" />
+      </Feature>
+      <Feature Id="ProductFeature1" Title="Microsoft Visual Studio 2013" Level="2">
+        <Condition Level="1"><![CDATA[VS2013_ROOT_FOLDER AND VS2013DEVENV]]></Condition>
+        <ComponentGroupRef Id="Visualizer12Components" />
+      </Feature>
+      <Feature Id="ProductFeature2" Title="Microsoft Visual Studio 2015" Level="2">
+        <Condition Level="1"><![CDATA[VS2015_ROOT_FOLDER AND VS2015DEVENV]]></Condition>
+        <ComponentGroupRef Id="Visualizer14Components" />
+      </Feature>
+    </Feature>
+    <!--<Condition Message="This application is only supported on Windows Vista, Windows Server 2008, or higher.">
+    <![CDATA[Installed OR (VersionNT >= 600)]]>
+</Condition>-->
+
+
+    <UIRef Id="WixUI_FeatureTree" />
+  <!--<UIRef Id="WixUI_Advanced" />-->
+
+
+    <!--<InstallExecuteSequence>
+      <Custom Action="CA_BlockIfVSIsNotInstalled" Before="CostInitialize">(NOT VS2005_ROOT_FOLDER OR NOT VS2005DEVENV) AND NOT VCSHARP2005EXPRESS_IDE AND NOT VB2005EXPRESS_IDE AND (NOT VS90_ROOT_FOLDER OR NOT VS90DEVENV) AND NOT VCSHARP90EXPRESS_IDE AND NOT VB90EXPRESS_IDE AND NOT Installed</Custom>
+    </InstallExecuteSequence>
+
+    <InstallUISequence>
+      <Custom Action="CA_BlockIfVSIsNotInstalled" Before="CostInitialize">(NOT VS2005_ROOT_FOLDER OR NOT VS2005DEVENV) AND NOT VCSHARP2005EXPRESS_IDE AND NOT VB2005EXPRESS_IDE AND (NOT VS90_ROOT_FOLDER OR NOT VS90DEVENV) AND NOT VCSHARP90EXPRESS_IDE AND NOT VB90EXPRESS_IDE AND NOT Installed</Custom>
+    </InstallUISequence>-->
+
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="Program Files">
+        <Directory Id="VS2012_ROOT_FOLDER" Name = "Microsoft Visual Studio 11.0">
+          <Directory Id="Common7_2012" Name="Common7">
+            <Directory Id="Packages_2012" Name="Packages">
+              <Directory Id="Debugger_2012" Name="Debugger">
+                <Directory Id="Visualizers_2012" Name="Visualizers">
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+        <Directory Id="VS2013_ROOT_FOLDER" Name = "Microsoft Visual Studio 12.0">
+          <Directory Id="Common7_2013" Name="Common7">
+            <Directory Id="Packages_2013" Name="Packages">
+              <Directory Id="Debugger_2013" Name="Debugger">
+                <Directory Id="Visualizers_2013" Name="Visualizers">
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+        <Directory Id="VS2015_ROOT_FOLDER" Name = "Microsoft Visual Studio 14.0">
+          <Directory Id="Common7_2015" Name="Common7">
+            <Directory Id="Packages_2015" Name="Packages">
+              <Directory Id="Debugger_2015" Name="Debugger">
+                <Directory Id="Visualizers_2015" Name="Visualizers">
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Visualizer11Components" Directory="Visualizers_2013">
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <!-- <Component Id="ProductComponent"> -->
+      <!-- TODO: Insert files, registry keys, and other resources here. -->
+      <!-- </Component> -->
+      <Component Id="ImageVisualizer11DllComponent" Guid="733c2e24-fd7a-4330-bc79-de7550674e19" Transitive="yes">
+        <!--<Condition>VS90DEVENV</Condition>-->
+        <File Id="ImageVisualizer11Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer.TargetPath)" KeyPath="yes" Checksum="yes" />
+      </Component>
+    </ComponentGroup>
+  
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="Visualizer12Components" Directory="Visualizers_2013">
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <!-- <Component Id="ProductComponent"> -->
+      <!-- TODO: Insert files, registry keys, and other resources here. -->
+      <!-- </Component> -->
+      <Component Id="ImageVisualizer12DllComponent" Guid="733c2e24-fd7a-4330-bc79-de7550674e19" Transitive="yes">
+        <!--<Condition>VS90DEVENV</Condition>-->
+        <File Id="ImageVisualizer12Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer.TargetPath)" KeyPath="yes" Checksum="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+  
+  <Fragment>  
+    <ComponentGroup Id="Visualizer14Components" Directory="Visualizers_2015">
+      <Component Id="ImageVisualizer14DllComponent" Guid="0df0118c-d660-401d-a391-96f8f582194d" Transitive="yes">
+        <!--<Condition>VS2015DEVENV</Condition>-->
+        <File Id="ImageVisualizer14Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer.TargetPath)" KeyPath="yes" Checksum="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

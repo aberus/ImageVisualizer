@@ -60,7 +60,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="600_315.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="tumblr_mwiiixNSpW1qbkusho1_1280.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VisualStudio256_256.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

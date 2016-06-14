@@ -1,34 +1,47 @@
-﻿using Microsoft.VisualStudio.DebuggerVisualizers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace TestVisualizer
 {
-
     class Program
     {
         [STAThread]
         static void Main()
         {
-            //var image1 = System.Drawing.Image.FromFile("tumblr_mwiiixNSpW1qbkusho1_1280.png");
+            var image1 = System.Drawing.Image.FromFile("tumblr_mwiiixNSpW1qbkusho1_1280.png");
 
-            //var visualizerHost = new VisualizerDevelopmentHost(image1, typeof(ImageVisualizer.Visualizer));
-            //visualizerHost.ShowVisualizer();
+            var visualizerHost = new VisualizerDevelopmentHost(image1, typeof(ImageVisualizer.Visualizer));
+            visualizerHost.ShowVisualizer();
+            var debuggeeObject = visualizerHost.DebuggeeObject;
 
-            //Debugger.Break();
+            Debugger.Break();
 
-            var image2 = new BitmapImage();
+
+            var image2 = new System.Windows.Media.Imaging.BitmapImage();
             image2.BeginInit();
             image2.UriSource = new Uri("tumblr_mwiiixNSpW1qbkusho1_1280.png", UriKind.Relative);
             image2.EndInit();
 
-            var visualizerHost = new VisualizerDevelopmentHost(image2, typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizer.ImageVisualizerObjectSource));
+            visualizerHost = new VisualizerDevelopmentHost(image2, typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizer.ImageVisualizerObjectSource));
             visualizerHost.ShowVisualizer();
+
+            Debugger.Break();
+
+
+            var image2small = new System.Windows.Media.Imaging.BitmapImage();
+            image2small.BeginInit();
+            image2small.UriSource = new Uri("VisualStudio256_256.png", UriKind.Relative);
+            image2small.EndInit();
+
+            visualizerHost = new VisualizerDevelopmentHost(image2small, typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizer.ImageVisualizerObjectSource));
+            visualizerHost.ShowVisualizer();
+
+            Debugger.Break();
         }
     }
 }

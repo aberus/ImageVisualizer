@@ -25,13 +25,15 @@ namespace ImageVisualizer
     /// </summary>
     public partial class ImageControl : UserControl
     {
-        Point? lastCenterPositionOnTarget;
+        //Point? lastCenterPositionOnTarget;
         Point? lastMousePositionOnTarget;
-        Point? lastDragPoint;
+        //Point? lastDragPoint;
 
         public ImageControl()
         {
             InitializeComponent();
+            
+            //ZoomToFit();
         }
 
         //public ImageControl(System.Drawing.Bitmap sourceBitmap) : this()
@@ -49,9 +51,13 @@ namespace ImageVisualizer
 
             if (sourceBitmap != null)
             {
+                var expression = sourceBitmap.ToString();
+
                 if (sourceBitmap is System.Drawing.Bitmap)
                 {
                     BitmapSource bitmap = null;
+                    //bitmap.HorizontalResolution, bitmap.VerticalResolution, bitmap.Size, bitmap.PixelFormat, bitmap.RawFormat;
+
 
                     IntPtr hObject = ((System.Drawing.Bitmap)sourceBitmap).GetHbitmap();
 
@@ -114,6 +120,9 @@ namespace ImageVisualizer
 
         private void DisplayImage_MouseWheel(object sender, MouseWheelEventArgs e)
         {
+            var p = Mouse.GetPosition(DisplayImage);
+            lastMousePositionOnTarget = p;
+
             //if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             //{
             //    if (e.Delta > 0)
@@ -134,41 +143,72 @@ namespace ImageVisualizer
 
             //if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
             //{
-                var matrix = DisplayImage.LayoutTransform.Value;
-                Point p = e.MouseDevice.GetPosition(DisplayImage);
-
+            //var matrix = DisplayImage.LayoutTransform.Value;
+            
             if (e.Delta > 0)
-                {
-                    matrix.ScaleAt(1.1, 1.1, p.X, p.Y);
-                }
-                else
-                {
-                    matrix.ScaleAt(1.0 / 1.1, 1.0 / 1.1, p.X, p.Y);
-                }
+            {
+                _zoomValue += 0.1;
+                //matrix.ScaleAt(1.1, 1.1, p.X, p.Y);
+            }
+            else if(e.Delta < 0)
+            {
+                _zoomValue -= 0.1;
+                //matrix.ScaleAt(1.0 / 1.1, 1.0 / 1.1, p.X, p.Y);
+            }
 
-                DisplayImage.LayoutTransform = new MatrixTransform(matrix); 
-            //}
+            //TODO
+            if (_zoomValue <= 0)
+                _zoomValue = double.Epsilon;
+
+            var zoom = ZoomToFit();
+            if (_zoomValue < zoom)
+               _zoomValue = zoom;
+
+            var scale = new ScaleTransform(_zoomValue, _zoomValue);
+            DisplayImage.LayoutTransform = scale;
+           // DisplayImage.LayoutTransform = new MatrixTransform(matrix);
         }
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
+            if (DisplayScroll.CanContentScroll)
+            {
+                Console.WriteLine("ScrollChangedEvent just Occurred");
+                Console.WriteLine("ExtentHeight is now " + e.ExtentHeight);
+                Console.WriteLine("ExtentWidth is now " + e.ExtentWidth);
+                Console.WriteLine("ExtentHeightChange was " + e.ExtentHeightChange);
+                Console.WriteLine("ExtentWidthChange was " + e.ExtentWidthChange);
+                Console.WriteLine("HorizontalOffset is now " + e.HorizontalOffset);
+                Console.WriteLine("VerticalOffset is now " + e.VerticalOffset);
+                Console.WriteLine("HorizontalChange was " + e.HorizontalChange);
+                Console.WriteLine("VerticalChange was " + e.VerticalChange);
+                Console.WriteLine("ViewportHeight is now " + e.ViewportHeight);
+                Console.WriteLine("ViewportWidth is now " + e.ViewportWidth);
+                Console.WriteLine("ViewportHeightChange was " + e.ViewportHeightChange);
+                Console.WriteLine("ViewportWidthChange was " + e.ViewportWidthChange);
+                Console.WriteLine("ActualHeight is now " + DisplayScroll.ActualHeight);
+                Console.WriteLine("ActualWidth is now " + DisplayScroll.ActualWidth);
+                Console.WriteLine("--------------------------------------------------------------");
+                //ActualHeight = ViewportHeight + HorizontalScrollbarHeight
+            }
+
+            DisplayScroll.UpdateLayout();
+
+            if(e.ViewportHeightChange != 0 || e.ViewportWidthChange != 0)
+            {
+                _zoomValue = ZoomToFit();
+                var scale = new ScaleTransform(_zoomValue, _zoomValue);
+                DisplayImage.LayoutTransform = scale;
+
+                DisplayScroll.UpdateLayout();
+            }
+
             if (e.ExtentHeightChange != 0 || e.ExtentWidthChange != 0)
             {
                 Point? targetBefore = null;
                 Point? targetNow = null;
 
-                if (!lastMousePositionOnTarget.HasValue)
-                {
-                    if (lastCenterPositionOnTarget.HasValue)
-                    {
-                        var centerOfViewport = new Point(DisplayScroll.ViewportWidth / 2, DisplayScroll.ViewportHeight / 2);
-                        Point centerOfTargetNow = DisplayScroll.TranslatePoint(centerOfViewport, DisplayImage);
-
-                        targetBefore = lastCenterPositionOnTarget;
-                        targetNow = centerOfTargetNow;
-                    }
-                }
-                else
+                if (lastMousePositionOnTarget.HasValue)
                 {
                     targetBefore = lastMousePositionOnTarget;
                     targetNow = Mouse.GetPosition(DisplayImage);
@@ -181,8 +221,8 @@ namespace ImageVisualizer
                     double dXInTargetPixels = targetNow.Value.X - targetBefore.Value.X;
                     double dYInTargetPixels = targetNow.Value.Y - targetBefore.Value.Y;
 
-                    double multiplicatorX = e.ExtentWidth / DisplayImage.Width;
-                    double multiplicatorY = e.ExtentHeight / DisplayImage.Height;
+                    double multiplicatorX =  e.ExtentWidth / DisplayImage.ActualWidth;
+                    double multiplicatorY =  e.ExtentHeight / DisplayImage.ActualHeight;
 
                     double newOffsetX = DisplayScroll.HorizontalOffset - dXInTargetPixels * multiplicatorX;
                     double newOffsetY = DisplayScroll.VerticalOffset - dYInTargetPixels * multiplicatorY;
@@ -195,6 +235,72 @@ namespace ImageVisualizer
                     DisplayScroll.ScrollToHorizontalOffset(newOffsetX);
                     DisplayScroll.ScrollToVerticalOffset(newOffsetY);
                 }
+            }
+        }
+
+
+        public double ZoomToFit()
+        {
+            if (DisplayImage.Source != null)
+            {
+                double width = DisplayScroll.ActualWidth;
+                double height = DisplayScroll.ActualHeight;
+                double imageWidth = DisplayImage.Source.Width;
+                double imageHeight = DisplayImage.Source.Height;
+                double zoom;
+                double aspectRatio;
+
+                if(imageWidth <= width || imageHeight <= height)
+                    return 1;
+                
+                if (imageWidth > imageHeight)
+                {
+                    aspectRatio = width / imageWidth;
+                    zoom = aspectRatio;
+
+                   if (height < imageHeight * zoom)
+                   {
+                       aspectRatio = height / imageHeight;
+                       zoom = aspectRatio;
+                   }
+                }
+                else
+                {
+                    aspectRatio = height / imageHeight;
+                    zoom = aspectRatio;
+
+                    if (width < imageWidth * zoom)
+                    {
+                        aspectRatio = width / imageWidth;
+                        zoom = aspectRatio;
+                    }
+                }
+
+                return zoom;               
+            }
+
+            return -1;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            //var zoom = ZoomToFit();
+            //if (zoom != -1)
+            //{
+            //    ScaleTransform scale = new ScaleTransform(zoom, zoom);
+            //    DisplayImage.LayoutTransform = scale;
+            //    this.Zoom = (int)Math.Round(Math.Floor(zoom));
+            //}
+        }
+
+        private void DisplayScroll_Loaded(object sender, RoutedEventArgs e)
+        {
+            var zoom = ZoomToFit();
+            if (zoom != -1)
+            {
+                ScaleTransform scale = new ScaleTransform(zoom, zoom);
+                DisplayImage.LayoutTransform = scale;
+                _zoomValue = zoom; //(int)Math.Round(Math.Floor(zoom));
             }
         }
     }

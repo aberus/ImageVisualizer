@@ -5,11 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ImageVisualizer"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Grid>
-        <ScrollViewer x:Name="DisplayScroll" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ScrollChanged="ScrollViewer_ScrollChanged">
-            <Image x:Name="DisplayImage" MouseWheel="DisplayImage_MouseWheel" />
+        <ScrollViewer x:Name="DisplayScroll" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" ScrollChanged="ScrollViewer_ScrollChanged" Loaded="DisplayScroll_Loaded">
+            <Image x:Name="DisplayImage" Stretch="None" SnapsToDevicePixels="True" HorizontalAlignment="Center" VerticalAlignment="Center" MouseWheel="DisplayImage_MouseWheel" />
         </ScrollViewer>
-
     </Grid>
 </UserControl>

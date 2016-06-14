@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
@@ -14,6 +15,7 @@ namespace ImageVisualizer
     public class SerializableBitmapImage : ISerializable
     {
         private BitmapImage image;
+        private string expression;
 
         public BitmapImage Image { get { return image; } private set { image = value; } }
 
@@ -45,27 +47,28 @@ namespace ImageVisualizer
                             }
                         }
                     }
-                    catch
+                    catch (ExternalException)
                     {
                     }
-                    //catch (ExternalException)
-                    //{
-                    //}
-                    //catch (ArgumentException)
-                    //{
-                    //}
-                    //catch (OutOfMemoryException)
-                    //{
-                    //}
-                    //catch (InvalidOperationException)
-                    //{
-                    //}
-                    //catch (NotImplementedException)
-                    //{
-                    //}
-                    //catch (FileNotFoundException)
-                    //{
-                    //}
+                    catch (ArgumentException)
+                    {
+                    }
+                    catch (OutOfMemoryException)
+                    {
+                    }
+                    catch (InvalidOperationException)
+                    {
+                    }
+                    catch (NotImplementedException)
+                    {
+                    }
+                    catch (FileNotFoundException)
+                    {
+                    }
+                }
+                else if(string.Equals(i.Name, "Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    expression = (string)i.Value;
                 }
             }
         }
@@ -83,6 +86,23 @@ namespace ImageVisualizer
         //[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
+
+           // System.Windows.Media.ImageSource a = new System.Windows.Media.ImageSource()
+           // a.Metadata.
+            //ImageFormat imageFormat = this.RawFormat;
+            //if (imageFormat == ImageFormat.Jpeg)
+            //{
+            //    imageFormat = ImageFormat.Png;
+            //}
+            //ImageCodecInfo imageCodecInfo = imageFormat.FindEncoder();
+            //if (imageCodecInfo == null)
+            //{
+            //    imageCodecInfo = ImageFormat.Png.FindEncoder();
+            //}
+            //this.Save(stream, imageCodecInfo, null);
+
+
+
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 var encoder = new PngBitmapEncoder();
@@ -91,6 +111,16 @@ namespace ImageVisualizer
 
                 info.AddValue("Image", memoryStream.ToArray(), typeof(byte[]));
             }
+
+            info.AddValue("Name", image.ToString());
+        }
+
+        public override string ToString()
+        {
+            if (!string.IsNullOrEmpty(expression))
+                return expression;
+
+            return base.ToString();
         }
     }
 }
