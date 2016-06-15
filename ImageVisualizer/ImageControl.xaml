@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Grid>
-        <ScrollViewer x:Name="DisplayScroll" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" ScrollChanged="ScrollViewer_ScrollChanged" Loaded="DisplayScroll_Loaded">
+        <ScrollViewer x:Name="DisplayScroll" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" 
+                      ScrollChanged="ScrollViewer_ScrollChanged" Loaded="DisplayScroll_Loaded" 
+                      MouseMove="DisplayScroll_MouseMove" PreviewMouseLeftButtonDown="DisplayScroll_PreviewMouseLeftButtonDown" MouseLeftButtonUp="DisplayScroll_MouseLeftButtonUp">
             <Image x:Name="DisplayImage" Stretch="None" SnapsToDevicePixels="True" HorizontalAlignment="Center" VerticalAlignment="Center" MouseWheel="DisplayImage_MouseWheel" />
         </ScrollViewer>
     </Grid>

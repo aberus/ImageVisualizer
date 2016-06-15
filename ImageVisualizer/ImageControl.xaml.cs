@@ -25,9 +25,8 @@ namespace ImageVisualizer
     /// </summary>
     public partial class ImageControl : UserControl
     {
-        //Point? lastCenterPositionOnTarget;
         Point? lastMousePositionOnTarget;
-        //Point? lastDragPoint;
+        Point? lastDragPoint;
 
         public ImageControl()
         {
@@ -91,25 +90,7 @@ namespace ImageVisualizer
                 {
                     DisplayImage.Source = (SerializableBitmapImage)sourceBitmap;
                 }
-
-
-                //var selector = new SurrogateSelector();
-                //var imageSurrogate = new BitmapImageCloneSurrogate();
-                //imageSurrogate.Register(selector);
-
-                //var bitmap = (BitmapSource)GenericCopier.Formater().Deserialize(imageStream);
-
-
-                // BinaryFormatter binaryFormatter = new BinaryFormatter(selector, new StreamingContext(StreamingContextStates.Clone));
-                //var bitmap = (BitmapSource)binaryFormatter.Deserialize(imageStream);
-                //var bitmap = new BitmapImage();
-                //bitmap.BeginInit();
-                //bitmap.StreamSource = imageStream;
-                //bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                //bitmap.EndInit();
-                //bitmap.Freeze();
             }
-
         }
 
         [DllImport("gdi32")]
@@ -302,6 +283,37 @@ namespace ImageVisualizer
                 DisplayImage.LayoutTransform = scale;
                 _zoomValue = zoom; //(int)Math.Round(Math.Floor(zoom));
             }
+        }
+
+        private void DisplayScroll_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (lastDragPoint.HasValue)
+            {
+                Point posNow = e.GetPosition(DisplayScroll);
+                double dX = posNow.X - lastDragPoint.Value.X;
+                double dY = posNow.Y - lastDragPoint.Value.Y;
+                lastDragPoint = posNow;
+                DisplayScroll.ScrollToHorizontalOffset(DisplayScroll.HorizontalOffset - dX);
+                DisplayScroll.ScrollToVerticalOffset(DisplayScroll.VerticalOffset - dY);
+            }
+        }
+
+        private void DisplayScroll_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var mousePosition = e.GetPosition(DisplayScroll);
+            if (mousePosition.X <= DisplayScroll.ViewportWidth && mousePosition.Y < DisplayScroll.ViewportHeight)
+            {
+                DisplayScroll.Cursor = Cursors.SizeAll;
+                lastDragPoint = mousePosition;
+                Mouse.Capture(DisplayScroll);
+            }
+        }
+
+        private void DisplayScroll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            DisplayScroll.Cursor = Cursors.Arrow;
+            DisplayScroll.ReleaseMouseCapture();
+            lastDragPoint = null;
         }
     }
 }
