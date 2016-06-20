@@ -17,7 +17,7 @@ namespace ImageVisualizer
         {
           get
             {
-                EnvDTE.DTE dte = (EnvDTE.DTE)System.Runtime.InteropServices.Marshal.GetActiveObject("VisualStudio.DTE.14.0");
+                var dte = (EnvDTE.DTE)System.Runtime.InteropServices.Marshal.GetActiveObject("VisualStudio.DTE.14.0");
                 var fontProperty = dte.Properties["FontsAndColors", "Dialogs and Tool Windows"];
                 object objValue;
                 if (fontProperty != null)

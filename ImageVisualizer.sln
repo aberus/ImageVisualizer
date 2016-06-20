@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer", "ImageVisualizer\ImageVisualizer.csproj", "{318C7CE4-37EE-4185-945D-B7833677A29A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer14", "ImageVisualizer14\ImageVisualizer14.csproj", "{318C7CE4-37EE-4185-945D-B7833677A29A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestVisualizer", "TestVisualizer\TestVisualizer.csproj", "{CBD84815-3DF2-43E9-B483-178DC89054E8}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupVisualizer", "SetupVisualizer\SetupVisualizer.wixproj", "{49BAF40F-9365-482B-BC8E-43557931B415}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer11", "ImageVisualizer11\ImageVisualizer11.csproj", "{496B16D7-54D1-418B-951B-71DD377156A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer10", "ImageVisualizer10\ImageVisualizer10.csproj", "{8377674C-A112-4DC9-9745-926434AE7B2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer12", "ImageVisualizer12\ImageVisualizer12.csproj", "{2B4306BF-2E14-4E75-AA09-5423E906C5D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +45,30 @@ Global
 		{49BAF40F-9365-482B-BC8E-43557931B415}.Release|Any CPU.Build.0 = Release|x86
 		{49BAF40F-9365-482B-BC8E-43557931B415}.Release|x86.ActiveCfg = Release|x86
 		{49BAF40F-9365-482B-BC8E-43557931B415}.Release|x86.Build.0 = Release|x86
+		{496B16D7-54D1-418B-951B-71DD377156A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{496B16D7-54D1-418B-951B-71DD377156A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{496B16D7-54D1-418B-951B-71DD377156A7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{496B16D7-54D1-418B-951B-71DD377156A7}.Debug|x86.Build.0 = Debug|Any CPU
+		{496B16D7-54D1-418B-951B-71DD377156A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{496B16D7-54D1-418B-951B-71DD377156A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{496B16D7-54D1-418B-951B-71DD377156A7}.Release|x86.ActiveCfg = Release|Any CPU
+		{496B16D7-54D1-418B-951B-71DD377156A7}.Release|x86.Build.0 = Release|Any CPU
+		{8377674C-A112-4DC9-9745-926434AE7B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8377674C-A112-4DC9-9745-926434AE7B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8377674C-A112-4DC9-9745-926434AE7B2E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8377674C-A112-4DC9-9745-926434AE7B2E}.Debug|x86.Build.0 = Debug|Any CPU
+		{8377674C-A112-4DC9-9745-926434AE7B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8377674C-A112-4DC9-9745-926434AE7B2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8377674C-A112-4DC9-9745-926434AE7B2E}.Release|x86.ActiveCfg = Release|Any CPU
+		{8377674C-A112-4DC9-9745-926434AE7B2E}.Release|x86.Build.0 = Release|Any CPU
+		{2B4306BF-2E14-4E75-AA09-5423E906C5D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B4306BF-2E14-4E75-AA09-5423E906C5D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B4306BF-2E14-4E75-AA09-5423E906C5D8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2B4306BF-2E14-4E75-AA09-5423E906C5D8}.Debug|x86.Build.0 = Debug|Any CPU
+		{2B4306BF-2E14-4E75-AA09-5423E906C5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B4306BF-2E14-4E75-AA09-5423E906C5D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B4306BF-2E14-4E75-AA09-5423E906C5D8}.Release|x86.ActiveCfg = Release|Any CPU
+		{2B4306BF-2E14-4E75-AA09-5423E906C5D8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

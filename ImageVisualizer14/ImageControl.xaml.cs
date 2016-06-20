@@ -279,7 +279,7 @@ namespace ImageVisualizer
             var zoom = ZoomToFit();
             if (zoom != -1)
             {
-                ScaleTransform scale = new ScaleTransform(zoom, zoom);
+                var scale = new ScaleTransform(zoom, zoom);
                 DisplayImage.LayoutTransform = scale;
                 _zoomValue = zoom; //(int)Math.Round(Math.Floor(zoom));
             }

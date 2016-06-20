@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,9 +34,9 @@ namespace TestVisualizer
             Debugger.Break();
 
 
-            var image2small = new System.Windows.Media.Imaging.BitmapImage();
+            var image2small = new System.Windows.Media.Imaging.BitmapImage(); //new Uri("VisualStudio256_256.png", UriKind.Relative));
             image2small.BeginInit();
-            image2small.UriSource = new Uri("VisualStudio256_256.png", UriKind.Relative);
+            image2small.StreamSource = new FileStream("VisualStudio256_256.png", FileMode.Open);
             image2small.EndInit();
 
             visualizerHost = new VisualizerDevelopmentHost(image2small, typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizer.ImageVisualizerObjectSource));
