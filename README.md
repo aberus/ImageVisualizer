@@ -7,9 +7,9 @@ Debugger Image Visualizer is a debug visualizer for Visual Studio. It allows you
 This extension works with:
 * Visual Studio 2010
 * Visual Studio 2012
-* ~~Visual Studio 2013~~
+* Visual Studio 2013
 * Visual Studio 2015
-* ~~Visual Studio 15~~
+* Visual Studio 15
 
 ![](https://i1.visualstudiogallery.msdn.s-msft.com/1a6045f1-1bb9-4f45-adde-b004cc657a9c/image/file/217228/1/preview.gif)
 
@@ -18,12 +18,18 @@ This extension works with:
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 0.2
+
+- Support for VS 2013 and 15
+
 ## 0.1
 
 - First preview release 
 
 ## Contribute
 
+If you have any troubles and/or suggestions please log an issue on the GitHub issue tracker.
+
 ## License
 
-[The MIT License (MIT)](LICENSE)
+The source code is available under [The MIT License (MIT)](LICENSE)
