@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?define ProductVersion = "0.1.0"?>
+<?define ProductVersion = "0.2.0"?>
 <?define ProductUpgradeCode = "5a2e7ccd-6ced-4a6b-9745-d8d73ed070cc"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:a="http://schemas.microsoft.com/wix/VSExtension">
   <Product Id="*" Name="Debugger Image Visualizer for Visual Studio (Preview)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Aleksander Berus" UpgradeCode="$(var.ProductUpgradeCode)">
@@ -38,11 +38,13 @@
     <PropertyRef Id="VS2012_ROOT_FOLDER" />
     <PropertyRef Id="VS2013_ROOT_FOLDER" />
     <PropertyRef Id="VS2015_ROOT_FOLDER" />
+    <PropertyRef Id="VS15_ROOT_FOLDER" />
     
     <PropertyRef Id="VS2010DEVENV" />
     <PropertyRef Id="VS2012DEVENV" />
     <PropertyRef Id="VS2013DEVENV" />
     <PropertyRef Id="VS2015DEVENV" />
+    <PropertyRef Id="VS15DEVENV" />
 
     <!-- Custom action to block install if a Visual Studio 2005 or 2008 --><!--
     --><!-- edition is not installed on the user's system.                 -->
@@ -63,19 +65,19 @@
         <Condition Level="1"><![CDATA[VS2012_ROOT_FOLDER AND VS2012DEVENV]]></Condition>
         <ComponentGroupRef Id="Visualizer11Components" />
       </Feature>
-      <!--<Feature Id="ProductFeature12" Title="Microsoft Visual Studio 2013" Level="2">
+      <Feature Id="ProductFeature12" Title="Microsoft Visual Studio 2013" Level="2">
         <Condition Level="1"><![CDATA[VS2013_ROOT_FOLDER AND VS2013DEVENV]]></Condition>
         <ComponentGroupRef Id="Visualizer12Components" />
-      </Feature>-->
+      </Feature>
       <Feature Id="ProductFeature14" Title="Microsoft Visual Studio 2015" Level="2">
         <Condition Level="1"><![CDATA[VS2015_ROOT_FOLDER AND VS2015DEVENV]]></Condition>
         <ComponentGroupRef Id="Visualizer14Components" />
       </Feature>
-    </Feature>
-    <!--<Feature Id="ProductFeature15" Title="Microsoft Visual Studio 15" Level="2">
+      <Feature Id="ProductFeature15" Title="Microsoft Visual Studio 15" Level="2">
         <Condition Level="1"><![CDATA[VS15_ROOT_FOLDER AND VS15DEVENV]]></Condition>
         <ComponentGroupRef Id="Visualizer15Components" />
-      </Feature>-->
+      </Feature>
+    </Feature>
     <!--<Condition Message="This application is only supported on Windows Vista, Windows Server 2008, or higher.">
     <![CDATA[Installed OR (VersionNT >= 600)]]>
 </Condition>-->
@@ -94,6 +96,18 @@
     </InstallUISequence>-->
 
   </Product>
+
+  <Fragment>
+    <Property Id="VS15_ROOT_FOLDER" Secure="yes">
+      <RegistrySearch Id="SearchForVS15RootPath" Root="HKLM" Key="Software\Microsoft\VisualStudio\SxS\VS7" Name="15.0" Type="raw" />
+    </Property>
+  </Fragment>
+
+  <Fragment>
+    <Property Id="VS15DEVENV" Secure="yes">
+      <RegistrySearch Id="VS15DevEnvSearch" Root="HKLM" Key="SOFTWARE\Microsoft\VisualStudio\15.0\Setup\VS" Name="EnvironmentPath" Type="raw" />
+    </Property>
+  </Fragment>
 
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
@@ -138,6 +152,16 @@
             </Directory>
           </Directory>
         </Directory>
+        <Directory Id="VS15_ROOT_FOLDER" Name = "Microsoft Visual Studio 15.0">
+          <Directory Id="Common7_15" Name="Common7">
+            <Directory Id="Packages_15" Name="Packages">
+              <Directory Id="Debugger_15" Name="Debugger">
+                <Directory Id="Visualizers_15" Name="Visualizers">
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
       </Directory>
     </Directory>
   </Fragment>
@@ -164,20 +188,29 @@
     </ComponentGroup>
   </Fragment>
 
-  <!--<Fragment>
-    <ComponentGroup Id="Visualizer121Components" Directory="Visualizers_2013">
-      <Component Id="ImageVisualizer12DllComponent" Guid="82312583-d3ac-4571-bae4-ef43d11ab684" Transitive="yes">-->
-    <!--<Condition>VS2013DEVENV</Condition>--><!--
+  <Fragment>
+    <ComponentGroup Id="Visualizer12Components" Directory="Visualizers_2013">
+      <Component Id="ImageVisualizer12DllComponent" Guid="82312583-d3ac-4571-bae4-ef43d11ab684" Transitive="yes">
+    <!--<Condition>VS2013DEVENV</Condition>-->
         <File Id="ImageVisualizer12Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer12.TargetPath)" KeyPath="yes" Checksum="yes" />
       </Component>
     </ComponentGroup>
-  </Fragment>-->
+  </Fragment>
   
   <Fragment>  
     <ComponentGroup Id="Visualizer14Components" Directory="Visualizers_2015">
       <Component Id="ImageVisualizer14DllComponent" Guid="0df0118c-d660-401d-a391-96f8f582194d" Transitive="yes">
         <!--<Condition>VS2015DEVENV</Condition>-->
         <File Id="ImageVisualizer14Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer14.TargetPath)" KeyPath="yes" Checksum="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Visualizer15Components" Directory="Visualizers_15">
+      <Component Id="ImageVisualizer15DllComponent" Guid="07cf3d02-cb8a-48d0-af50-5065a2d4cf35" Transitive="yes">
+        <!--<Condition>VS15DEVENV</Condition>-->
+        <File Id="ImageVisualizer15Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer15.TargetPath)" KeyPath="yes" Checksum="yes" />
       </Component>
     </ComponentGroup>
   </Fragment>

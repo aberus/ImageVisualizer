@@ -50,9 +50,25 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\ImageVisualizer12\ImageVisualizer12.csproj">
+      <Name>ImageVisualizer12</Name>
+      <Project>{2b4306bf-2e14-4e75-aa09-5423e906c5d8}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\ImageVisualizer14\ImageVisualizer14.csproj">
       <Name>ImageVisualizer14</Name>
       <Project>{318c7ce4-37ee-4185-945d-b7833677a29a}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageVisualizer15\ImageVisualizer15.csproj">
+      <Name>ImageVisualizer15</Name>
+      <Project>{0a095313-31f1-4677-acc2-60bcf5adfc5d}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
