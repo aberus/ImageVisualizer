@@ -18,6 +18,11 @@ This extension works with:
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 0.3
+
+- Support for VS2017
+- Bug fixed (Visualizer only worked in VS2015)
+
 ## 0.2
 
 - Support for VS 2013 and 15
