@@ -9,7 +9,7 @@ This extension works with:
 * Visual Studio 2012
 * Visual Studio 2013
 * Visual Studio 2015
-* Visual Studio 15
+* Visual Studio 2017
 
 ![](https://i1.visualstudiogallery.msdn.s-msft.com/1a6045f1-1bb9-4f45-adde-b004cc657a9c/image/file/217228/1/preview.gif)
 
