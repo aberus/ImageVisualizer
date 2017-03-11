@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?define ProductVersion = "0.2.0"?>
+<?define ProductVersion = "0.3.0"?>
 <?define ProductUpgradeCode = "5a2e7ccd-6ced-4a6b-9745-d8d73ed070cc"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:a="http://schemas.microsoft.com/wix/VSExtension">
   <Product Id="*" Name="Debugger Image Visualizer for Visual Studio (Preview)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Aleksander Berus" UpgradeCode="$(var.ProductUpgradeCode)">
@@ -38,13 +38,13 @@
     <PropertyRef Id="VS2012_ROOT_FOLDER" />
     <PropertyRef Id="VS2013_ROOT_FOLDER" />
     <PropertyRef Id="VS2015_ROOT_FOLDER" />
-    <PropertyRef Id="VS15_ROOT_FOLDER" />
+    <PropertyRef Id="VS2017_ROOT_FOLDER" />
     
     <PropertyRef Id="VS2010DEVENV" />
     <PropertyRef Id="VS2012DEVENV" />
     <PropertyRef Id="VS2013DEVENV" />
     <PropertyRef Id="VS2015DEVENV" />
-    <PropertyRef Id="VS15DEVENV" />
+    <PropertyRef Id="VS2017DEVENV" />
 
     <!-- Custom action to block install if a Visual Studio 2005 or 2008 --><!--
     --><!-- edition is not installed on the user's system.                 -->
@@ -73,8 +73,8 @@
         <Condition Level="1"><![CDATA[VS2015_ROOT_FOLDER AND VS2015DEVENV]]></Condition>
         <ComponentGroupRef Id="Visualizer14Components" />
       </Feature>
-      <Feature Id="ProductFeature15" Title="Microsoft Visual Studio 15" Level="2">
-        <Condition Level="1"><![CDATA[VS15_ROOT_FOLDER AND VS15DEVENV]]></Condition>
+      <Feature Id="ProductFeature15" Title="Microsoft Visual Studio 2017" Level="2">
+        <Condition Level="1"><![CDATA[VS2017_ROOT_FOLDER AND VS2017DEVENV]]></Condition>
         <ComponentGroupRef Id="Visualizer15Components" />
       </Feature>
     </Feature>
@@ -97,7 +97,7 @@
 
   </Product>
 
-  <Fragment>
+  <!--<Fragment>
     <Property Id="VS15_ROOT_FOLDER" Secure="yes">
       <RegistrySearch Id="SearchForVS15RootPath" Root="HKLM" Key="Software\Microsoft\VisualStudio\SxS\VS7" Name="15.0" Type="raw" />
     </Property>
@@ -107,7 +107,7 @@
     <Property Id="VS15DEVENV" Secure="yes">
       <RegistrySearch Id="VS15DevEnvSearch" Root="HKLM" Key="SOFTWARE\Microsoft\VisualStudio\15.0\Setup\VS" Name="EnvironmentPath" Type="raw" />
     </Property>
-  </Fragment>
+  </Fragment>-->
 
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
@@ -152,11 +152,11 @@
             </Directory>
           </Directory>
         </Directory>
-        <Directory Id="VS15_ROOT_FOLDER" Name = "Microsoft Visual Studio 15.0">
-          <Directory Id="Common7_15" Name="Common7">
-            <Directory Id="Packages_15" Name="Packages">
-              <Directory Id="Debugger_15" Name="Debugger">
-                <Directory Id="Visualizers_15" Name="Visualizers">
+        <Directory Id="VS2017_ROOT_FOLDER" Name = "Microsoft Visual Studio 15.0">
+          <Directory Id="Common7_2017" Name="Common7">
+            <Directory Id="Packages_2017" Name="Packages">
+              <Directory Id="Debugger_2017" Name="Debugger">
+                <Directory Id="Visualizers_2017" Name="Visualizers">
                 </Directory>
               </Directory>
             </Directory>
@@ -207,9 +207,9 @@
   </Fragment>
 
   <Fragment>
-    <ComponentGroup Id="Visualizer15Components" Directory="Visualizers_15">
+    <ComponentGroup Id="Visualizer15Components" Directory="Visualizers_2017">
       <Component Id="ImageVisualizer15DllComponent" Guid="07cf3d02-cb8a-48d0-af50-5065a2d4cf35" Transitive="yes">
-        <!--<Condition>VS15DEVENV</Condition>-->
+        <!--<Condition>VS2017DEVENV</Condition>-->
         <File Id="ImageVisualizer15Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer15.TargetPath)" KeyPath="yes" Checksum="yes" />
       </Component>
     </ComponentGroup>
