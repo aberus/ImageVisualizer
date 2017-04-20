@@ -2,7 +2,7 @@
 
 Debugger Image Visualizer is a debug visualizer for Visual Studio. It allows you to visually view the graphic content of WinForm's images [System.Drawing.Bitmap](https://msdn.microsoft.com/en-us/library/system.drawing.bitmap.aspx) and WPF's images [System.Windows.Media.Imaging.BitmapImage](https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.bitmapimage.aspx) during debugging.
 
-[Download this extension](https://visualstudiogallery.msdn.microsoft.com/1a6045f1-1bb9-4f45-adde-b004cc657a9c) on Visual Studio Gallery.
+[Download this extension](https://marketplace.visualstudio.com/items?itemName=AleksanderBerus.DebuggerImageVisualizerPreview) on Visual Studio Gallery.
 
 This extension works with:
 * Visual Studio 2010
