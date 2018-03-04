@@ -69,6 +69,17 @@ namespace ImageVisualizer
             txtExpression.Text = objectProvider.GetObject().ToString();
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (Form.ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         public void SetFontAndScale(Control ctlControl, Font objFont)
         {
             float sngRatio;
