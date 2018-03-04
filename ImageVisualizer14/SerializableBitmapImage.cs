@@ -32,19 +32,19 @@ namespace ImageVisualizer
                 {
                     try
                     {
-                        var array = (byte[])i.Value;
+                        var array = i.Value as byte[];
                         if (array != null)
                         {
-                            using (MemoryStream stream = new MemoryStream(array))
-                            {
-                                stream.Position = 0;
-                                image = new BitmapImage();
-                                image.CacheOption = BitmapCacheOption.OnLoad;
-                                image.BeginInit();
-                                image.StreamSource = new MemoryStream(array);
-                                image.EndInit();
-                                image.Freeze();
-                            }
+                            var stream = new MemoryStream(array);
+                            stream.Seek(0, SeekOrigin.Begin);
+
+                            image = new BitmapImage();
+                            image.CacheOption = BitmapCacheOption.OnLoad;
+                            image.BeginInit();
+                            image.StreamSource = stream;
+                            image.EndInit();
+                            image.Freeze();
+                            
                         }
                     }
                     catch (ExternalException)
@@ -91,6 +91,7 @@ namespace ImageVisualizer
                 var encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(image));
                 encoder.Save(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
 
                 info.AddValue("Image", memoryStream.ToArray(), typeof(byte[]));
             }
