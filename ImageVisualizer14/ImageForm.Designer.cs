@@ -30,11 +30,11 @@
         {
             this.btnClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.elementHost = new System.Windows.Forms.Integration.ElementHost();
+            this.imageControl = new ImageVisualizer.ImageControl();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtExpression = new System.Windows.Forms.TextBox();
-            this.elementHost = new System.Windows.Forms.Integration.ElementHost();
-            this.imageControl = new ImageVisualizer.ImageControl();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +42,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(378, 384);
+            this.btnClose.Location = new System.Drawing.Point(270, 322);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(102, 27);
             this.btnClose.TabIndex = 3;
@@ -59,26 +59,37 @@
             this.panel1.Controls.Add(this.elementHost);
             this.panel1.Location = new System.Drawing.Point(12, 64);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(468, 314);
+            this.panel1.Size = new System.Drawing.Size(360, 252);
             this.panel1.TabIndex = 2;
+            // 
+            // elementHost
+            // 
+            this.elementHost.BackColorTransparent = true;
+            this.elementHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost.Location = new System.Drawing.Point(0, 0);
+            this.elementHost.Name = "elementHost";
+            this.elementHost.Size = new System.Drawing.Size(358, 250);
+            this.elementHost.TabIndex = 0;
+            this.elementHost.Text = "elementHost";
+            this.elementHost.Child = this.imageControl;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 20);
+            this.label1.Location = new System.Drawing.Point(14, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Expression:";
+            this.label1.Text = "&Expression:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 40);
+            this.label2.Location = new System.Drawing.Point(14, 43);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Value:";
+            this.label2.Text = "&Value:";
             // 
             // txtExpression
             // 
@@ -87,34 +98,24 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtExpression.BackColor = System.Drawing.SystemColors.Control;
             this.txtExpression.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtExpression.Location = new System.Drawing.Point(131, 20);
+            this.txtExpression.Location = new System.Drawing.Point(121, 14);
             this.txtExpression.Name = "txtExpression";
             this.txtExpression.ReadOnly = true;
-            this.txtExpression.Size = new System.Drawing.Size(348, 20);
+            this.txtExpression.Size = new System.Drawing.Size(251, 20);
             this.txtExpression.TabIndex = 6;
-            // 
-            // elementHost
-            // 
-            this.elementHost.BackColorTransparent = true;
-            this.elementHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.elementHost.Location = new System.Drawing.Point(0, 0);
-            this.elementHost.Name = "elementHost";
-            this.elementHost.Size = new System.Drawing.Size(466, 312);
-            this.elementHost.TabIndex = 0;
-            this.elementHost.Text = "elementHost";
-            this.elementHost.Child = this.imageControl;
             // 
             // ImageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 423);
+            this.ClientSize = new System.Drawing.Size(384, 361);
             this.Controls.Add(this.txtExpression);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnClose);
-            this.MinimumSize = new System.Drawing.Size(508, 462);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = "ImageForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
