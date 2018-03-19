@@ -19,7 +19,7 @@ These are the changes to each version that has been released.
 
 ### 0.4
 
-* VSIX Installer (VS2010 support removed due to limitation on VSIX format)
+* VS Package (VS2010 support removed due to limitation on VSIX format)
 * UI fixes
 * Fixes for BitmapImage serialization
 
