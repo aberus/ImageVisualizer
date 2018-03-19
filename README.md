@@ -1,11 +1,11 @@
-# Debugger Image Visualizer for Visual Studio (Preview)
+# Debugger Image Visualizer for Visual Studio
 
-Debugger Image Visualizer is a debug visualizer for Visual Studio. It allows you to visually view the graphic content of WinForm's images [System.Drawing.Bitmap](https://msdn.microsoft.com/en-us/library/system.drawing.bitmap.aspx) and WPF's images [System.Windows.Media.Imaging.BitmapImage](https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.bitmapimage.aspx) during debugging.
+Debugger Image Visualizer is a debug visualizer for Visual Studio. It allows you to visually view the graphic content of WPF's images [System.Windows.Media.Imaging.BitmapImage](https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.bitmapimage.aspx) and WinForms' images [System.Drawing.Bitmap](https://msdn.microsoft.com/en-us/library/system.drawing.bitmap.aspx) during debugging. Supports zooming and paning while previewing images.
 
-[Download this extension](https://marketplace.visualstudio.com/items?itemName=AleksanderBerus.DebuggerImageVisualizerPreview) on Visual Studio Gallery.
+[Download this extension](https://marketplace.visualstudio.com/items?itemName=AleksanderBerus.DebuggerImageVisualizerPreview) on Visual Studio Marketplace.
 
 This extension works with:
-* Visual Studio 2010
+* <s>Visual Studio 2010</s>
 * Visual Studio 2012
 * Visual Studio 2013
 * Visual Studio 2015
@@ -13,23 +13,28 @@ This extension works with:
 
 ![](https://i1.visualstudiogallery.msdn.s-msft.com/1a6045f1-1bb9-4f45-adde-b004cc657a9c/image/file/217228/1/preview.gif)
 
-# Changelog
+## Changelog
 
-These are the changes to each version that has been released
-on the official Visual Studio extension gallery.
+These are the changes to each version that has been released.
 
-## 0.3
+### 0.4
 
-- Support for VS2017
-- Bug fixed (Visualizer only worked in VS2015)
+* VSIX Installer (VS2010 support removed due to limitation on VSIX format)
+* UI fixes
+* Fixes for BitmapImage serialization
 
-## 0.2
+### 0.3
 
-- Support for VS 2013 and 15
+* Support for VS2017
+* Bug fixed (Visualizer only worked in VS2015)
 
-## 0.1
+### 0.2
 
-- First preview release 
+* Support for VS 2013 and 15
+
+### 0.1
+
+* First preview release 
 
 ## Contribute
 
