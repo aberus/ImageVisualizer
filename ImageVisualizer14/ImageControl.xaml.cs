@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -52,6 +53,11 @@ namespace ImageVisualizer
             {
                 var expression = sourceBitmap.ToString();
 
+                MethodInfo method = sourceBitmap.GetType().GetMethod("ToBitmap");
+                if (method != null)
+                {
+                    sourceBitmap = method.Invoke(sourceBitmap, null);
+                }
                 if (sourceBitmap is System.Drawing.Bitmap)
                 {
                     BitmapSource bitmap = null;
