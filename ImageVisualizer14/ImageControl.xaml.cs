@@ -53,7 +53,7 @@ namespace ImageVisualizer
             {
                 var expression = sourceBitmap.ToString();
 
-                MethodInfo method = sourceBitmap.GetType().GetMethod("ToBitmap");
+                MethodInfo method = sourceBitmap.GetType().GetMethod("ToBitmap", new Type[] { });
                 if (method != null)
                 {
                     sourceBitmap = method.Invoke(sourceBitmap, null);
