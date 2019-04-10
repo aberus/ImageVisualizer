@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ImageVisualizer
 {
@@ -36,24 +24,16 @@ namespace ImageVisualizer
             //ZoomToFit();
         }
 
-        //public ImageControl(System.Drawing.Bitmap sourceBitmap) : this()
-        //{
-        //    image.Source =
-        //}
-
-        //public void SetImage(ImageSource imageSource)
-        //{
-        //    image.Source = imageSource;
-        //}
-
-        public void SetImage(object sourceBitmap)//(System.IO.Stream imageStream)
+        public void SetImage(object sourceBitmap)
         {
 
             if (sourceBitmap != null)
             {
-                var expression = sourceBitmap.ToString();
+#if DEBUG
+                string expression = sourceBitmap.ToString();
+#endif
 
-                MethodInfo method = sourceBitmap.GetType().GetMethod("ToBitmap", new Type[] { });
+                var method = sourceBitmap.GetType().GetMethod("ToBitmap", new Type[] { });
                 if (method != null)
                 {
                     sourceBitmap = method.Invoke(sourceBitmap, null);
@@ -63,8 +43,7 @@ namespace ImageVisualizer
                     BitmapSource bitmap = null;
                     //bitmap.HorizontalResolution, bitmap.VerticalResolution, bitmap.Size, bitmap.PixelFormat, bitmap.RawFormat;
 
-
-                    IntPtr hObject = ((System.Drawing.Bitmap)sourceBitmap).GetHbitmap();
+                    var hObject = ((System.Drawing.Bitmap)sourceBitmap).GetHbitmap();
 
                     try
                     {

@@ -1,21 +1,16 @@
-﻿
+﻿using System;
 using ImageVisualizer;
 using Microsoft.VisualStudio.DebuggerVisualizers;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 [assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Drawing.Bitmap), Description = "Image Visualizer")]
 [assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Windows.Media.Imaging.BitmapImage), Description = "Image Visualizer")]
+[assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Windows.Media.ImageSource), Description = "Image Visualizer")]
+[assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Windows.Media.Imaging.BitmapSource), Description = "Image Visualizer")]
 
 namespace ImageVisualizer
 {
     /// <summary>
-    /// A Visualizer for <see cref="System.Windows.Media.Imaging.BitmapImage"/> and <see cref="System.Drawing.Bitmap"/>.  
+    /// A Visualizer for <see cref="System.Windows.Media.Imaging.BitmapImage"/> and <see cref="System.Drawing.Bitmap"/>.
     /// </summary>
     public class Visualizer : DialogDebuggerVisualizer
     {

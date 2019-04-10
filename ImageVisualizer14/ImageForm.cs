@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
@@ -15,7 +9,7 @@ namespace ImageVisualizer
     {
         public static Font UIFont
         {
-          get
+            get
             {
 #if VS10
                 var dteProgID = "VisualStudio.DTE.10.0";
@@ -42,14 +36,11 @@ namespace ImageVisualizer
                     var font = new Font(fontFamily, fontSize);
 
                     return font;
-                    
                 }
 
                 return SystemFonts.DefaultFont;
             }
-        }   
-
-        
+        }
 
         public ImageForm(IVisualizerObjectProvider objectProvider)
         {
@@ -71,7 +62,7 @@ namespace ImageVisualizer
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (Form.ModifierKeys == Keys.None && keyData == Keys.Escape)
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
             {
                 this.Close();
                 return true;
@@ -80,13 +71,12 @@ namespace ImageVisualizer
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        public void SetFontAndScale(Control ctlControl, Font objFont)
+        private void SetFontAndScale(Control ctlControl, Font objFont)
         {
-            float sngRatio;
-            sngRatio = objFont.Size / ctlControl.Font.Size;
-            if (ctlControl is Form)
+            float sngRatio = objFont.Size / ctlControl.Font.Size;
+            if (ctlControl is Form form)
             {
-                ((Form)ctlControl).AutoScaleMode = AutoScaleMode.None;
+                form.AutoScaleMode = AutoScaleMode.None;
             }
             ctlControl.Font = objFont;
             ctlControl.Scale(new SizeF(sngRatio, sngRatio));

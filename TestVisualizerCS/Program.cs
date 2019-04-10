@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace TestVisualizer
@@ -32,12 +33,27 @@ namespace TestVisualizer
 
             Debugger.Break();
 
-            var image2small = new System.Windows.Media.Imaging.BitmapImage(); //new Uri("VisualStudio256_256.png", UriKind.Relative));
-            image2small.BeginInit();
-            image2small.StreamSource = new FileStream("VisualStudio256_256.png", FileMode.Open);
-            image2small.EndInit();
+            var image3 = new System.Windows.Media.Imaging.BitmapImage(); //new Uri("VisualStudio256_256.png", UriKind.Relative));
+            image3.BeginInit();
+            image3.StreamSource = new FileStream("VisualStudio256_256.png", FileMode.Open);
+            image3.EndInit();
 
-            visualizerHost = new VisualizerDevelopmentHost(image2small, typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizer.ImageVisualizerObjectSource));
+            visualizerHost = new VisualizerDevelopmentHost(image3, typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizer.ImageVisualizerObjectSource));
+            visualizerHost.ShowVisualizer();
+
+            Debugger.Break();
+
+            var pixelFormat = PixelFormats.Bgr32;
+            int width = 1280;
+            int height = 720;
+            int rawStride = (width * pixelFormat.BitsPerPixel + 7) / 8;
+            byte[] rawImage = new byte[rawStride * height];
+
+            Random value = new Random();
+            value.NextBytes(rawImage);
+
+            var image4 = System.Windows.Media.Imaging.BitmapSource.Create(width, height, 96, 96, pixelFormat, null, rawImage, rawStride);
+            visualizerHost = new VisualizerDevelopmentHost(image4, typeof(ImageVisualizer.Visualizer), typeof(ImageVisualizer.ImageVisualizerObjectSource));
             visualizerHost.ShowVisualizer();
 
             Debugger.Break();

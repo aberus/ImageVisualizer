@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace ImageVisualizer
@@ -14,14 +9,19 @@ namespace ImageVisualizer
     [Serializable]
     public class SerializableBitmapImage : ISerializable
     {
-        private BitmapImage image;
+        public BitmapSource bitmapSource;
         private string expression;
 
-        public BitmapImage Image { get { return image; } private set { image = value; } }
+        public BitmapImage Image { get; private set; }
 
         internal SerializableBitmapImage(BitmapImage image)
         {
-            this.image = image;
+            this.Image = image;
+        }
+
+        internal SerializableBitmapImage(BitmapSource source)
+        {
+            bitmapSource = source;
         }
 
         protected SerializableBitmapImage(SerializationInfo info, StreamingContext context)
@@ -38,13 +38,12 @@ namespace ImageVisualizer
                             var stream = new MemoryStream(array);
                             stream.Seek(0, SeekOrigin.Begin);
 
-                            image = new BitmapImage();
-                            image.CacheOption = BitmapCacheOption.OnLoad;
-                            image.BeginInit();
-                            image.StreamSource = stream;
-                            image.EndInit();
-                            image.Freeze();
-                            
+                            Image = new BitmapImage();
+                            Image.CacheOption = BitmapCacheOption.OnLoad;
+                            Image.BeginInit();
+                            Image.StreamSource = stream;
+                            Image.EndInit();
+                            Image.Freeze();
                         }
                     }
                     catch (ExternalException)
@@ -86,17 +85,22 @@ namespace ImageVisualizer
         //[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            using (MemoryStream memoryStream = new MemoryStream())
+            var source = Image ?? bitmapSource;
+
+            if (source != null)
             {
-                var encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(image));
-                encoder.Save(memoryStream);
-                memoryStream.Seek(0, SeekOrigin.Begin);
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    var encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(source));
+                    encoder.Save(memoryStream);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
 
-                info.AddValue("Image", memoryStream.ToArray(), typeof(byte[]));
+                    info.AddValue("Image", memoryStream.ToArray(), typeof(byte[]));
+                }
+
+                info.AddValue("Name", source.ToString());
             }
-
-            info.AddValue("Name", image.ToString());
         }
 
         public override string ToString()
