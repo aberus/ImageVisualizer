@@ -76,8 +76,8 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\ImageVisualizer\ImageVisualizer.csproj">
-      <Name>ImageVisualizer</Name>
+    <ProjectReference Include="..\ImageVisualizerPackage\ImageVisualizerPackage.csproj">
+      <Name>ImageVisualizerPackage</Name>
       <Project>{fb4c20b3-659c-4d7e-9832-7bfb165df2e0}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?define ProductVersion = "0.4.0"?>
+<?define ProductVersion = "0.5.0"?>
 <?define ProductUpgradeCode = "5a2e7ccd-6ced-4a6b-9745-d8d73ed070cc"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:VSExtension="http://schemas.microsoft.com/wix/VSExtension">
   <Product Id="*" Name="Debugger Image Visualizer for Visual Studio" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Aleksander Berus" UpgradeCode="$(var.ProductUpgradeCode)">
@@ -25,10 +25,10 @@
 
     <!--<Icon Id="icon" SourceFile="ImageDebuggerVisaulizer.ico" />-->
     <!--<Property Id="ARPPRODUCTICON" Value="icon" />-->
-    <Property Id="ARPCOMMENTS" Value="Copyright (c) aberus.com 2016-2018" />
+    <Property Id="ARPCOMMENTS" Value="Copyright (c) aberus.com 2016-2019" />
     <Property Id="ARPCONTACT" Value="Aleksander Berus" />
     <Property Id="ARPREADME" Value="https://github.com/aberus/ImageVisualizer/blob/master/README.md"/>
-    <Property Id="ARPHELPLINK" Value="http://www.aberus.com/"/>
+    <Property Id="ARPHELPLINK" Value="https://marketplace.visualstudio.com/items?itemName=AleksanderBerus.DebuggerImageVisualizerPreview"/>
 
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="bannrbmp.bmp" />
@@ -94,6 +94,10 @@
     </Condition>-->
 
     <Feature Id="ProductFeature" Title="Install Image Visualizer for" Display="expand"  InstallDefault="local" Absent="disallow" AllowAdvertise="no">
+      <Feature Id="ProductFeature10" Title="Microsoft Visual Studio 2010" Level="2">
+        <Condition Level="1"><![CDATA[VS2010_ROOT_FOLDER AND VS2010DEVENV]]></Condition>
+        <ComponentGroupRef Id="Visualizer2010Components" />
+      </Feature>
       <Feature Id="ProductFeature11" Title="Microsoft Visual Studio 2012" Level="2">
         <Condition Level="1"><![CDATA[VS2012_ROOT_FOLDER AND VS2012DEVENV]]></Condition>
         <ComponentGroupRef Id="ImageVisualizer2012Components" />
@@ -152,6 +156,16 @@
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder" Name="Program Files">
+        <Directory Id="VS2010_ROOT_FOLDER" Name = "Microsoft Visual Studio 10.0">
+          <Directory Id="Common7_2010" Name="Common7">
+            <Directory Id="Packages_2010" Name="Packages">
+              <Directory Id="Debugger_2010" Name="Debugger">
+                <Directory Id="Visualizers_2010" Name="Visualizers">
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
         <Directory Id="VS2012_ROOT_FOLDER" Name="Microsoft Visual Studio 11.0">
           <Directory Id="Common7_2012" Name="Common7">
             <Directory Id="Packages_2012" Name="Packages">
@@ -213,6 +227,14 @@
   </Fragment>
 
   <Fragment>
+    <ComponentGroup Id="Visualizer2010Components" Directory="Visualizers_2010">
+      <Component Id="ImageVisualizer10DllComponent" Guid="733c2e24-fd7a-4330-bc79-de7550674e19" Transitive="yes">
+        <File Id="ImageVisualizer10Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer10.TargetPath)" KeyPath="yes" Checksum="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
     <ComponentGroup Id="ImageVisualizer2012Components" Directory="Visualizers_2012">
       <Component Id="ImageVisualizer2012DllComponent" Guid="b5833f8e-afed-4348-87c5-e2997176392e" Transitive="yes">
         <File Id="ImageVisualizer2012Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer11.TargetPath)" KeyPath="yes" Checksum="yes" />
@@ -220,19 +242,19 @@
     </ComponentGroup>
     <ComponentGroup Id="ImageVisualizer2012VsixComponents" Directory="ImageVisualizer_2012">
       <Component Id="ImageVisualizer2012PkgdefComponent" Guid="32299f57-809e-4aea-b293-58a136af6c3b">
-        <File Id="ImageVisualizer2012Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizer.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
+        <File Id="ImageVisualizer2012Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2012VsixManifestComponent" Guid="a9b865aa-ad60-45b3-81b9-272fc76b10ca">
-        <File Id="ImageVisualizer2012VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizer.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
+        <File Id="ImageVisualizer2012VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizerPackage.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2012VsixIconComponent" Guid="89a7fcca-8e52-46f1-8449-3b8dec8a99e7">
-        <File Id="ImageVisualizer2012VsixIcon" Source="$(var.ImageVisualizer.TargetDir)Logo_128x.png" KeyPath="yes"/>
+        <File Id="ImageVisualizer2012VsixIcon" Source="$(var.ImageVisualizerPackage.TargetDir)Logo_128x.png" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2012VsixPreviewComponent" Guid="e9738b64-6b18-4410-8668-fc8b8bb8073a">
-        <File Id="ImageVisualizer2012VsixPreview" Source="$(var.ImageVisualizer.TargetDir)Preview_200x.png" KeyPath="yes"/>
+        <File Id="ImageVisualizer2012VsixPreview" Source="$(var.ImageVisualizerPackage.TargetDir)Preview_200x.png" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2012VsixDllComponent" Guid="3b38bc64-ad2b-4200-9fc0-a77874ac8d64">
-        <File Id="ImageVisualizer2012VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizer.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
+        <File Id="ImageVisualizer2012VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
   </Fragment>
@@ -243,21 +265,21 @@
         <File Id="ImageVisualizer2013Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer12.TargetPath)" KeyPath="yes" Checksum="yes" />
       </Component>
     </ComponentGroup>
-  <ComponentGroup Id="ImageVisualizer2013VsixComponents" Directory="ImageVisualizer_2013">
+    <ComponentGroup Id="ImageVisualizer2013VsixComponents" Directory="ImageVisualizer_2013">
       <Component Id="ImageVisualizer2013PkgdefComponent" Guid="fc7ca9d5-9b43-430d-9b5a-696bb4fa26f6">
-        <File Id="ImageVisualizer2013Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizer.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
+        <File Id="ImageVisualizer2013Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2013VsixManifestComponent" Guid="dbcc9203-394c-4dfe-8a6d-36c7853e8160">
-        <File Id="ImageVisualizer2013VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizer.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
+        <File Id="ImageVisualizer2013VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizerPackage.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2013VsixIconComponent" Guid="d686df96-36fb-4ed0-ab5a-002f59634cdd">
-        <File Id="ImageVisualizer2013VsixIcon" Source="$(var.ImageVisualizer.TargetDir)Logo_128x.png" KeyPath="yes"/>
+        <File Id="ImageVisualizer2013VsixIcon" Source="$(var.ImageVisualizerPackage.TargetDir)Logo_128x.png" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2013VsixPreviewComponent" Guid="ca58617e-512e-4bba-a583-5540cfb9614d">
-        <File Id="ImageVisualizer2013VsixPreview" Source="$(var.ImageVisualizer.TargetDir)Preview_200x.png" KeyPath="yes"/>
+        <File Id="ImageVisualizer2013VsixPreview" Source="$(var.ImageVisualizerPackage.TargetDir)Preview_200x.png" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2013VsixDllComponent" Guid="e43957e2-2e9d-4b95-9c9d-1cd5381be737">
-        <File Id="ImageVisualizer2013VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizer.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
+        <File Id="ImageVisualizer2013VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
   </Fragment>
@@ -268,21 +290,21 @@
         <File Id="ImageVisualizer2015Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer14.TargetPath)" KeyPath="yes" Checksum="yes" />
       </Component>
     </ComponentGroup>
-  <ComponentGroup Id="ImageVisualizer2015VsixComponents" Directory="ImageVisualizer_2015">
+    <ComponentGroup Id="ImageVisualizer2015VsixComponents" Directory="ImageVisualizer_2015">
       <Component Id="ImageVisualizer2015PkgdefComponent" Guid="57396bee-e0df-40e2-bfc4-d0cb1cae2eca">
-        <File Id="ImageVisualizer2015Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizer.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
+        <File Id="ImageVisualizer2015Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2015VsixManifestComponent" Guid="6ca71c3c-4893-4a0b-aaf3-56f92af50bf3">
-        <File Id="ImageVisualizer2015VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizer.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
+        <File Id="ImageVisualizer2015VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizerPackage.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2015VsixIconComponent" Guid="c95ceec2-0714-4aae-843a-71c31e76ad4a">
-        <File Id="ImageVisualizer2015VsixIcon" Source="$(var.ImageVisualizer.TargetDir)Logo_128x.png" KeyPath="yes"/>
+        <File Id="ImageVisualizer2015VsixIcon" Source="$(var.ImageVisualizerPackage.TargetDir)Logo_128x.png" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2015VsixPreviewComponent" Guid="5debbdc2-49d8-493c-8593-bcea2e883d39">
-        <File Id="ImageVisualizer2015VsixPreview" Source="$(var.ImageVisualizer.TargetDir)Preview_200x.png" KeyPath="yes"/>
+        <File Id="ImageVisualizer2015VsixPreview" Source="$(var.ImageVisualizerPackage.TargetDir)Preview_200x.png" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2015VsixDllComponent" Guid="81bc275a-04c9-4c22-8694-7976462d567e">
-        <File Id="ImageVisualizer2015VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizer.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
+        <File Id="ImageVisualizer2015VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
   </Fragment>
@@ -293,26 +315,26 @@
         <File Id="ImageVisualizer2017Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer15.TargetPath)" KeyPath="yes" Checksum="yes" />
       </Component>
       <!--<Component Id="ImageVisualizerVsix15Component" Guid="d255d924-61e5-4687-bfc4-3000d83a7e06">
-        <File Id="ImageVisualizer15Vsix" Name="ImageVisualizer.vsix" Source="$(var.ImageVisualizer.TargetDir)ImageVisualizer.vsix" Vital="yes">
+        <File Id="ImageVisualizer15Vsix" Name="ImageVisualizer.vsix" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.vsix" Vital="yes">
           <VSExtension:VsixPackage PackageId="2443c97f-77f2-47ea-b473-7f34832b2f86" Target="professional" TargetVersion="15.0" Permanent="no" Vital="yes" />
         </File>
       </Component>-->
     </ComponentGroup>
     <ComponentGroup Id="ImageVisualizer2017VsixComponents" Directory="ImageVisualizer_2017">
       <Component Id="ImageVisualizer2017PkgdefComponent" Guid="ecfe0e9b-e734-4bb0-a66e-a776c08fd92d">
-        <File Id="ImageVisualizer2017Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizer.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
+        <File Id="ImageVisualizer2017Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2017VsixManifestComponent" Guid="fe6c2754-ebd7-4d46-9175-07b114f9d5e0">
-        <File Id="ImageVisualizer2017VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizer.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
+        <File Id="ImageVisualizer2017VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizerPackage.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2017VsixIconComponent" Guid="6d3168c7-bfb7-4f95-8483-1d2de9189beb">
-        <File Id="ImageVisualizer2017VsixIcon" Source="$(var.ImageVisualizer.TargetDir)Logo_128x.png" KeyPath="yes"/>
+        <File Id="ImageVisualizer2017VsixIcon" Source="$(var.ImageVisualizerPackage.TargetDir)Logo_128x.png" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2017VsixPreviewComponent" Guid="18ba42fa-22ab-44c3-9000-cc435a22484b">
-        <File Id="ImageVisualizer2017VsixPreview" Source="$(var.ImageVisualizer.TargetDir)Preview_200x.png" KeyPath="yes"/>
+        <File Id="ImageVisualizer2017VsixPreview" Source="$(var.ImageVisualizerPackage.TargetDir)Preview_200x.png" KeyPath="yes"/>
       </Component>
       <Component Id="ImageVisualizer2017VsixDllComponent" Guid="51df33e2-b196-416c-988a-1ef37a7c3907">
-        <File Id="ImageVisualizer2017VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizer.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
+        <File Id="ImageVisualizer2017VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
   </Fragment>
