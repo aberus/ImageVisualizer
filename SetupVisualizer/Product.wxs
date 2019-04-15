@@ -15,7 +15,6 @@
     </Upgrade>
     <Condition Message="A newer version of this software is already installed.">NOT NEWERVERSIONDETECTED</Condition>-->
 
-    <Property Id="ARPCOMMENTS" Value="Copyright (c) aberus.com 2016-2019" />
     <Property Id="ARPCONTACT" Value="Aleksander Berus" />
     <Property Id="ARPREADME" Value="https://github.com/aberus/ImageVisualizer/blob/master/README.md"/>
     <Property Id="ARPHELPLINK" Value="https://marketplace.visualstudio.com/items?itemName=AleksanderBerus.DebuggerImageVisualizerPreview"/>
