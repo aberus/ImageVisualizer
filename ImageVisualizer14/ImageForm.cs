@@ -23,6 +23,8 @@ namespace ImageVisualizer
                 var dteProgID = "VisualStudio.DTE.14.0";
 #elif VS15
                 var dteProgID = "VisualStudio.DTE.15.0";
+#elif VS16
+                var dteProgID = "VisualStudio.DTE.16.0";
 #endif
                 var dte = (EnvDTE.DTE)System.Runtime.InteropServices.Marshal.GetActiveObject(dteProgID);
                 var fontProperty = dte.Properties["FontsAndColors", "Dialogs and Tool Windows"];

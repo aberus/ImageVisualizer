@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?define ProductVersion = "0.5.0"?>
+<?define ProductVersion = "0.6.0"?>
 <?define ProductUpgradeCode = "5a2e7ccd-6ced-4a6b-9745-d8d73ed070cc"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:VSExtension="http://schemas.microsoft.com/wix/VSExtension">
   <Product Id="*" Name="Debugger Image Visualizer for Visual Studio" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Aleksander Berus" UpgradeCode="$(var.ProductUpgradeCode)">
@@ -15,17 +15,6 @@
     </Upgrade>
     <Condition Message="A newer version of this software is already installed.">NOT NEWERVERSIONDETECTED</Condition>-->
 
-    <!--<Property Id="ADDLOCAL" Value="ProductFeature,ProductFeature1,ProductFeature2" />-->
-
-    <!--
-    <Property Id="ARPNOREPAIR" Value="1" />
-    <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />    Remove repair 
-    <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />     Remove modify 
-    -->
-
-    <!--<Icon Id="icon" SourceFile="ImageDebuggerVisaulizer.ico" />-->
-    <!--<Property Id="ARPPRODUCTICON" Value="icon" />-->
-    <Property Id="ARPCOMMENTS" Value="Copyright (c) aberus.com 2016-2019" />
     <Property Id="ARPCONTACT" Value="Aleksander Berus" />
     <Property Id="ARPREADME" Value="https://github.com/aberus/ImageVisualizer/blob/master/README.md"/>
     <Property Id="ARPHELPLINK" Value="https://marketplace.visualstudio.com/items?itemName=AleksanderBerus.DebuggerImageVisualizerPreview"/>
@@ -34,23 +23,39 @@
     <WixVariable Id="WixUIBannerBmp" Value="bannrbmp.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp" />
 
+	    <Property Id="VS2019_IDE_DIR" Secure="yes" SuppressModularization="yes">
+      <DirectorySearch Id="VS2019DirectorySearch" Path="[VS2019_ROOT_FOLDER]">
+        <DirectorySearch Id="VS2019EnvironmentDirectorySearch" Path="Common7\IDE" Depth="1" />
+      </DirectorySearch>
+    </Property>
+
     <PropertyRef Id="VS2010_ROOT_FOLDER" />
     <PropertyRef Id="VS2012_ROOT_FOLDER" />
     <PropertyRef Id="VS2013_ROOT_FOLDER" />
     <PropertyRef Id="VS2015_ROOT_FOLDER" />
     <PropertyRef Id="VS2017_ROOT_FOLDER" />
-
+   
     <PropertyRef Id="VS2010_EXTENSIONS_DIR" />
     <PropertyRef Id="VS2012_EXTENSIONS_DIR" />
     <PropertyRef Id="VS2013_EXTENSIONS_DIR" />
     <PropertyRef Id="VS2015_EXTENSIONS_DIR" />
     <PropertyRef Id="VS2017_EXTENSIONS_DIR" />
+    <Property Id="VS2019_EXTENSIONS_DIR" Secure="yes" SuppressModularization="yes">
+      <DirectorySearchRef Id="VS2019EnvironmentDirectorySearch" Parent="VS2019DirectorySearch" Path="Common7\IDE">
+        <DirectorySearch Id="VS2019ExtensionsDirectorySearch" Path="Extensions" Depth="1" />
+      </DirectorySearchRef>
+    </Property>
 
     <PropertyRef Id="VS2010DEVENV" />
     <PropertyRef Id="VS2012DEVENV" />
     <PropertyRef Id="VS2013DEVENV" />
     <PropertyRef Id="VS2015DEVENV" />
     <PropertyRef Id="VS2017DEVENV" />
+    <Property Id="VS2019DEVENV" Secure="yes" SuppressModularization="yes">
+      <DirectorySearchRef Id="VS2019EnvironmentDirectorySearch" Parent="VS2019DirectorySearch" Path="Common7\IDE">
+        <FileSearch Id="VS2019DevEnvSearch" Name="devenv.exe" />
+      </DirectorySearchRef>
+    </Property>
 
     <CustomAction Id="VS2012TouchExtensions"
                   Directory='VS2012_EXTENSIONS_DIR'
@@ -80,18 +85,12 @@
                   ExeCommand="[SystemFolder]cmd.exe /c &quot;copy /b extensions.configurationchanged +,,&quot;"
                   Return="ignore" />
 
-
-    <!-- Custom action to block install if a Visual Studio 2005 or 2008 -->
-    <!--
-    -->
-    <!-- edition is not installed on the user's system.                 -->
-    <!--
-    <CustomAction Id="CA_BlockIfVSIsNotInstalled" Error="!(loc.LaunchCondition_MissingVS)" />
-    -->
-
-    <!--<Condition Message="!(loc.LaunchCondition_AdminPrivs)">
-      <![CDATA[Privileged]]>
-    </Condition>-->
+    <CustomAction Id="VS2019TouchExtensions"
+              Directory='VS2019_EXTENSIONS_DIR'
+              Execute="deferred"
+              Impersonate="no"
+              ExeCommand="[SystemFolder]cmd.exe /c &quot;copy /b extensions.configurationchanged +,,&quot;"
+              Return="ignore" />
 
     <Feature Id="ProductFeature" Title="Install Image Visualizer for" Display="expand"  InstallDefault="local" Absent="disallow" AllowAdvertise="no">
       <Feature Id="ProductFeature10" Title="Microsoft Visual Studio 2010" Level="2">
@@ -118,14 +117,14 @@
         <ComponentGroupRef Id="ImageVisualizer2017Components" />
         <ComponentGroupRef Id="ImageVisualizer2017VsixComponents"/>
       </Feature>
+      <Feature Id="ProductFeature16" Title="Microsoft Visual Studio 2019" Level="2">
+        <Condition Level="1"><![CDATA[VS2019_ROOT_FOLDER AND VS2019DEVENV]]></Condition>
+        <ComponentGroupRef Id="ImageVisualizer2019Components" />
+        <ComponentGroupRef Id="ImageVisualizer2019VsixComponents"/>
+      </Feature>
     </Feature>
-    <!--<Condition Message="This application is only supported on Windows Vista, Windows Server 2008, or higher.">
-    <![CDATA[Installed OR (VersionNT >= 600)]]>
-    </Condition>-->
-
 
     <UIRef Id="WixUI_FeatureTree" />
-    <!--<UIRef Id="WixUI_Advanced" />-->
 
     <InstallExecuteSequence>
       <Custom Action="VS2012TouchExtensions" After="InstallFiles">
@@ -140,16 +139,19 @@
       <Custom Action="VS2017TouchExtensions" After="InstallFiles">
         <![CDATA[&ProductFeature15=3]]>
       </Custom>
+      <Custom Action="VS2019TouchExtensions" After="InstallFiles">
+        <![CDATA[&ProductFeature16=3]]>
+      </Custom>
     </InstallExecuteSequence>
 
-
-    <!--<InstallExecuteSequence>
-      <Custom Action="CA_BlockIfVSIsNotInstalled" Before="CostInitialize">(NOT VS2005_ROOT_FOLDER OR NOT VS2005DEVENV) AND NOT VCSHARP2005EXPRESS_IDE AND NOT VB2005EXPRESS_IDE AND (NOT VS90_ROOT_FOLDER OR NOT VS90DEVENV) AND NOT VCSHARP90EXPRESS_IDE AND NOT VB90EXPRESS_IDE AND NOT Installed</Custom>
-    </InstallExecuteSequence>
-
+    <Binary Id="IsWixActions" SourceFile="$(var.IsWiXActions.TargetDir)IsWiXActions.CA.dll"/>
+    <CustomAction Id="VSFindInstances2" BinaryKey="IsWixActions" DllEntry="VSFindInstances2" Execute="firstSequence"/>
     <InstallUISequence>
-      <Custom Action="CA_BlockIfVSIsNotInstalled" Before="CostInitialize">(NOT VS2005_ROOT_FOLDER OR NOT VS2005DEVENV) AND NOT VCSHARP2005EXPRESS_IDE AND NOT VB2005EXPRESS_IDE AND (NOT VS90_ROOT_FOLDER OR NOT VS90DEVENV) AND NOT VCSHARP90EXPRESS_IDE AND NOT VB90EXPRESS_IDE AND NOT Installed</Custom>
-    </InstallUISequence>-->
+      <Custom Action="VSFindInstances2" After="VSFindInstances"></Custom>
+    </InstallUISequence>
+    <InstallExecuteSequence>
+      <Custom Action="VSFindInstances2" After="VSFindInstances"></Custom>
+    </InstallExecuteSequence>
 
   </Product>
 
@@ -220,6 +222,20 @@
         </Directory>
         <Directory Id="VS2017_EXTENSIONS_DIR" Name="Extensions">
           <Directory Id="ImageVisualizer_2017" Name="ImageVisualizer">
+          </Directory>
+        </Directory>
+        <Directory Id="VS2019_ROOT_FOLDER" Name="Microsoft Visual Studio 15.0">
+          <Directory Id="Common7_2019" Name="Common7">
+            <Directory Id="Packages_2019" Name="Packages">
+              <Directory Id="Debugger_2019" Name="Debugger">
+                <Directory Id="Visualizers_2019" Name="Visualizers">
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+        <Directory Id="VS2019_EXTENSIONS_DIR" Name="Extensions">
+          <Directory Id="ImageVisualizer_2019" Name="ImageVisualizer">
           </Directory>
         </Directory>
       </Directory>
@@ -335,6 +351,31 @@
       </Component>
       <Component Id="ImageVisualizer2017VsixDllComponent" Guid="51df33e2-b196-416c-988a-1ef37a7c3907">
         <File Id="ImageVisualizer2017VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ImageVisualizer2019Components" Directory="Visualizers_2019">
+      <Component Id="ImageVisualizer2019DllComponent" Guid="4d0a23a3-0a10-45f0-9619-d335c833ec67" Transitive="yes">
+        <File Id="ImageVisualizer2019Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer16.TargetPath)" KeyPath="yes" Checksum="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="ImageVisualizer2019VsixComponents" Directory="ImageVisualizer_2019">
+      <Component Id="ImageVisualizer2019PkgdefComponent" Guid="13d39860-f035-4e9a-ba98-adc6ec7c3435">
+        <File Id="ImageVisualizer2019Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
+      </Component>
+      <Component Id="ImageVisualizer2019VsixManifestComponent" Guid="c83791d8-3438-4258-9d97-1f5a395335da">
+        <File Id="ImageVisualizer2019VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizerPackage.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
+      </Component>
+      <Component Id="ImageVisualizer2019VsixIconComponent" Guid="c3af7402-83b5-4709-9aee-3202f108bc8d">
+        <File Id="ImageVisualizer2019VsixIcon" Source="$(var.ImageVisualizerPackage.TargetDir)Logo_128x.png" KeyPath="yes"/>
+      </Component>
+      <Component Id="ImageVisualizer2019VsixPreviewComponent" Guid="bb225d4a-dc91-468a-a27b-b0548dfac489">
+        <File Id="ImageVisualizer2019VsixPreview" Source="$(var.ImageVisualizerPackage.TargetDir)Preview_200x.png" KeyPath="yes"/>
+      </Component>
+      <Component Id="ImageVisualizer2019VsixDllComponent" Guid="e6274b19-1a72-4e22-a068-a11b754e4242">
+        <File Id="ImageVisualizer2019VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
   </Fragment>
