@@ -1,21 +1,32 @@
 # Debugger Image Visualizer for Visual Studio
 
-Debugger Image Visualizer is a debug visualizer for Visual Studio. It allows you to visually view the graphic content of WPF's images [System.Windows.Media.Imaging.BitmapImage](https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.bitmapimage.aspx) and WinForms' images [System.Drawing.Bitmap](https://msdn.microsoft.com/en-us/library/system.drawing.bitmap.aspx) during debugging. Supports zooming and paning while previewing images.
+Debugger Image Visualizer is a debug visualizer for Visual Studio. It allows you to visually view the graphic content of WPF's images [BitmapImage](https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.bitmapimage.aspx), [BitmapSource](https://docs.microsoft.com/en-us/dotnet/api/system.windows.media.imaging.bitmapsource), [ImageSource](https://docs.microsoft.com/en-us/dotnet/api/system.windows.media.imagesource), and WinForms' images [Bitmap](https://msdn.microsoft.com/en-us/library/system.drawing.bitmap.aspx) during debugging. Supports zooming and paning while previewing images.
 
 [Download this extension](https://marketplace.visualstudio.com/items?itemName=AleksanderBerus.DebuggerImageVisualizerPreview) on Visual Studio Marketplace.
 
 This extension works with:
-* <s>Visual Studio 2010</s>
+* Visual Studio 2010
 * Visual Studio 2012
 * Visual Studio 2013
 * Visual Studio 2015
 * Visual Studio 2017
+* Visual Studio 2019
 
-![](https://i1.visualstudiogallery.msdn.s-msft.com/1a6045f1-1bb9-4f45-adde-b004cc657a9c/image/file/217228/1/preview.gif)
+![](https://aleksanderberus.gallerycdn.vsassets.io/extensions/aleksanderberus/debuggerimagevisualizerpreview/0.6.0/1556274284741/219157/1/Preview.gif)
 
 ## Changelog
 
 These are the changes to each version that has been released.
+
+### 0.6
+
+* Support for VS 2019
+
+### 0.5
+
+* Returned VS2010 support
+* Added support of WPF ImageSource / BitmapSource
+* Added support for custom ToBitmap() method
 
 ### 0.4
 
