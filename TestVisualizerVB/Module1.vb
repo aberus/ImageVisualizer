@@ -1,6 +1,7 @@
 ﻿Imports System
 Imports System.Diagnostics
 Imports System.IO
+Imports System.Windows.Media
 Imports Microsoft.VisualStudio.DebuggerVisualizers
 
 Module Module1
@@ -25,15 +26,31 @@ Module Module1
 
         Debugger.Break()
 
-        Dim image2small = New System.Windows.Media.Imaging.BitmapImage() 'new Uri("VisualStudio256_256.png", UriKind.Relative));
-        image2small.BeginInit()
-        image2small.StreamSource = New FileStream("VisualStudio256_256.png", FileMode.Open)
-        image2small.EndInit()
+        Dim image3 = New System.Windows.Media.Imaging.BitmapImage() 'new Uri("VisualStudio256_256.png", UriKind.Relative));
+        image3.BeginInit()
+        image3.StreamSource = New FileStream("VisualStudio256_256.png", FileMode.Open)
+        image3.EndInit()
 
-        visualizerHost = New VisualizerDevelopmentHost(image2small, GetType(ImageVisualizer.Visualizer), GetType(ImageVisualizer.ImageVisualizerObjectSource))
+        visualizerHost = New VisualizerDevelopmentHost(image3, GetType(ImageVisualizer.Visualizer), GetType(ImageVisualizer.ImageVisualizerObjectSource))
         visualizerHost.ShowVisualizer()
 
         Debugger.Break()
+
+        Dim pixelFormat = PixelFormats.Bgr32
+        Dim width As Integer = 1280
+        Dim height As Integer = 720
+        Dim rawStride As Integer = (width * pixelFormat.BitsPerPixel + 7) / 8
+        Dim rawImage As Byte() = New Byte(rawStride * height - 1) {}
+
+        Dim value As Random = New Random()
+        value.NextBytes(rawImage)
+
+        Dim image4 = System.Windows.Media.Imaging.BitmapSource.Create(width, height, 96, 96, pixelFormat, Nothing, rawImage, rawStride)
+        visualizerHost = New VisualizerDevelopmentHost(image4, GetType(ImageVisualizer.Visualizer), GetType(ImageVisualizer.ImageVisualizerObjectSource))
+        visualizerHost.ShowVisualizer()
+
+        Debugger.Break()
+
 
     End Sub
 
