@@ -23,7 +23,7 @@
     <WixVariable Id="WixUIBannerBmp" Value="bannrbmp.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp" />
 
-	    <Property Id="VS2019_IDE_DIR" Secure="yes" SuppressModularization="yes">
+      <Property Id="VS2019_IDE_DIR" Secure="yes" SuppressModularization="yes">
       <DirectorySearch Id="VS2019DirectorySearch" Path="[VS2019_ROOT_FOLDER]">
         <DirectorySearch Id="VS2019EnvironmentDirectorySearch" Path="Common7\IDE" Depth="1" />
       </DirectorySearch>
