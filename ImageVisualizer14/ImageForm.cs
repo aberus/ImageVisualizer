@@ -28,10 +28,9 @@ namespace ImageVisualizer
 #endif
                 var dte = (EnvDTE.DTE)System.Runtime.InteropServices.Marshal.GetActiveObject(dteProgID);
                 var fontProperty = dte.Properties["FontsAndColors", "Dialogs and Tool Windows"];
-                object objValue;
                 if (fontProperty != null)
                 {
-                    objValue = fontProperty.Item("FontFamily").Value;
+                    object objValue = fontProperty.Item("FontFamily").Value;
                     var fontFamily = objValue.ToString();
                     objValue = fontProperty.Item("FontSize").Value;
                     var fontSize = Convert.ToSingle(objValue);

@@ -17,16 +17,19 @@ namespace ImageVisualizer
         Point? lastMousePositionOnTarget;
         Point? lastDragPoint;
 
+        [DllImport("gdi32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool DeleteObject(IntPtr hObject);
+
+        double _zoomValue = 1.0;
+
         public ImageControl()
         {
             InitializeComponent();
-            
-            //ZoomToFit();
         }
 
         public void SetImage(object sourceBitmap)
         {
-
             if (sourceBitmap != null)
             {
 #if DEBUG
@@ -41,7 +44,6 @@ namespace ImageVisualizer
                 if (sourceBitmap is System.Drawing.Bitmap)
                 {
                     BitmapSource bitmap = null;
-                    //bitmap.HorizontalResolution, bitmap.VerticalResolution, bitmap.Size, bitmap.PixelFormat, bitmap.RawFormat;
 
                     var hObject = ((System.Drawing.Bitmap)sourceBitmap).GetHbitmap();
 
@@ -62,14 +64,13 @@ namespace ImageVisualizer
                         DeleteObject(hObject);
                     }
 
-                    DisplayImage.Width = bitmap.Width;
-                    DisplayImage.Height = bitmap.Height;
+                    if(bitmap != null)
+                    {
+                        DisplayImage.Width = bitmap.Width;
+                        DisplayImage.Height = bitmap.Height;
 
-                    DisplayImage.Source = bitmap;
-
-
-
-
+                        DisplayImage.Source = bitmap;
+                    }
                 }
                 else if (sourceBitmap is SerializableBitmapImage)
                 {
@@ -78,51 +79,20 @@ namespace ImageVisualizer
             }
         }
 
-        [DllImport("gdi32")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool DeleteObject(IntPtr hObject);
-
-        double _zoomValue = 1.0;
-
         private void DisplayImage_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             var p = Mouse.GetPosition(DisplayImage);
             lastMousePositionOnTarget = p;
-
-            //if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
-            //{
-            //    if (e.Delta > 0)
-            //    {
-            //        _zoomValue += 0.1;
-            //    }
-            //    else
-            //    {
-            //        _zoomValue -= 0.1;
-            //    }
-
-            //    ScaleTransform scale = new ScaleTransform(_zoomValue, _zoomValue);
-            //    DisplayImage.LayoutTransform = scale;
-
-            //}
-
-            //e.Handled = true;
-
-            //if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
-            //{
-            //var matrix = DisplayImage.LayoutTransform.Value;
-            
+     
             if (e.Delta > 0)
             {
                 _zoomValue += 0.1;
-                //matrix.ScaleAt(1.1, 1.1, p.X, p.Y);
             }
             else if(e.Delta < 0)
             {
                 _zoomValue -= 0.1;
-                //matrix.ScaleAt(1.0 / 1.1, 1.0 / 1.1, p.X, p.Y);
             }
 
-            //TODO
             if (_zoomValue <= 0)
                 _zoomValue = double.Epsilon;
 
@@ -132,11 +102,11 @@ namespace ImageVisualizer
 
             var scale = new ScaleTransform(_zoomValue, _zoomValue);
             DisplayImage.LayoutTransform = scale;
-           // DisplayImage.LayoutTransform = new MatrixTransform(matrix);
         }
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
+#if DEBUG
             if (DisplayScroll.CanContentScroll)
             {
                 Console.WriteLine("ScrollChangedEvent just Occurred");
@@ -157,6 +127,7 @@ namespace ImageVisualizer
                 Console.WriteLine("--------------------------------------------------------------");
                 //ActualHeight = ViewportHeight + HorizontalScrollbarHeight
             }
+#endif
 
             DisplayScroll.UpdateLayout();
 
@@ -204,8 +175,7 @@ namespace ImageVisualizer
             }
         }
 
-
-        public double ZoomToFit()
+        private double ZoomToFit()
         {
             if (DisplayImage.Source != null)
             {
@@ -248,17 +218,6 @@ namespace ImageVisualizer
             return -1;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            //var zoom = ZoomToFit();
-            //if (zoom != -1)
-            //{
-            //    ScaleTransform scale = new ScaleTransform(zoom, zoom);
-            //    DisplayImage.LayoutTransform = scale;
-            //    this.Zoom = (int)Math.Round(Math.Floor(zoom));
-            //}
-        }
-
         private void DisplayScroll_Loaded(object sender, RoutedEventArgs e)
         {
             var zoom = ZoomToFit();
@@ -266,7 +225,7 @@ namespace ImageVisualizer
             {
                 var scale = new ScaleTransform(zoom, zoom);
                 DisplayImage.LayoutTransform = scale;
-                _zoomValue = zoom; //(int)Math.Round(Math.Floor(zoom));
+                _zoomValue = zoom;
             }
         }
 
