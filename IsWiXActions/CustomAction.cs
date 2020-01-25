@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Deployment.WindowsInstaller;
 using Microsoft.VisualStudio.Setup.Configuration;
 
-namespace IsWiXActions
+namespace IsWixActions
 {
     public class CustomActions
     {
