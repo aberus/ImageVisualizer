@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestVisualizer</RootNamespace>
     <AssemblyName>TestVisualizer</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -66,9 +66,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImageVisualizer15\ImageVisualizer15.csproj">
-      <Project>{0a095313-31f1-4677-acc2-60bcf5adfc5d}</Project>
-      <Name>ImageVisualizer15</Name>
+    <ProjectReference Include="..\ImageVisualizer16\ImageVisualizer16.csproj">
+      <Project>{63d1d741-7c82-447b-b5f8-68b3be3470d2}</Project>
+      <Name>ImageVisualizer16</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
