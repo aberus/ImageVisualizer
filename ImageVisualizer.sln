@@ -13,7 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer14", "ImageV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer15", "ImageVisualizer15\ImageVisualizer15.csproj", "{0A095313-31F1-4677-ACC2-60BCF5ADFC5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer16.UI", "ImageVisualizer16\ImageVisualizer16.UI.csproj", "{63D1D741-7C82-447B-B5F8-68B3BE3470D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer16.UI", "ImageVisualizer16.UI\ImageVisualizer16.UI.csproj", "{63D1D741-7C82-447B-B5F8-68B3BE3470D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageVisualizer16.Common", "ImageVisualizer16.Common\ImageVisualizer16.Common.csproj", "{B271E1B1-BB78-4864-8DB5-BC48FB1CB132}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageVisualizer16.DebuggeeSide", "ImageVisualizer16.DebuggeeSide\ImageVisualizer16.DebuggeeSide.csproj", "{552D4CE4-EF94-4232-B8EA-C5F26E930220}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizerPackage", "ImageVisualizerPackage\ImageVisualizerPackage.csproj", "{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}"
 EndProject
@@ -23,10 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageVisualizer16.Common", "ImageVisualizer16.Common\ImageVisualizer16.Common.csproj", "{B271E1B1-BB78-4864-8DB5-BC48FB1CB132}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageVisualizer16.DebuggeeSide", "ImageVisualizer16.DebuggeeSide\ImageVisualizer16.DebuggeeSide.csproj", "{552D4CE4-EF94-4232-B8EA-C5F26E930220}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
