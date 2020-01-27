@@ -2,10 +2,10 @@
 using ImageVisualizer;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
-[assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Drawing.Bitmap), Description = "Image Visualizer")]
+//System.Drawing.Bitmap
+[assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(VisualizerObjectSource), Target = typeof(System.Drawing.Bitmap), Description = "Image Visualizer")]
+//System.Windows.Media.ImageSource, System.Windows.Media.Imaging.BitmapImage, System.Windows.Media.Imaging.BitmapSource
 [assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Windows.Media.ImageSource), Description = "Image Visualizer")]
-//[assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Windows.Media.Imaging.BitmapImage), Description = "Image Visualizer")]
-//[assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Windows.Media.Imaging.BitmapSource), Description = "Image Visualizer")]
 
 namespace ImageVisualizer
 {

@@ -10,16 +10,16 @@ namespace ImageVisualizer
     public class SerializableBitmapImage : ISerializable
     {
         public BitmapSource bitmapSource;
-        private string expression;
+        private readonly string expression;
 
         public BitmapImage Image { get; private set; }
 
-        internal SerializableBitmapImage(BitmapImage image)
+        public SerializableBitmapImage(BitmapImage image)
         {
             this.Image = image;
         }
 
-        internal SerializableBitmapImage(BitmapSource source)
+        public SerializableBitmapImage(BitmapSource source)
         {
             bitmapSource = source;
         }
@@ -32,8 +32,7 @@ namespace ImageVisualizer
                 {
                     try
                     {
-                        var array = i.Value as byte[];
-                        if (array != null)
+                        if (i.Value is byte[] array)
                         {
                             var stream = new MemoryStream(array);
                             stream.Seek(0, SeekOrigin.Begin);
@@ -89,7 +88,7 @@ namespace ImageVisualizer
 
             if (source != null)
             {
-                using (MemoryStream memoryStream = new MemoryStream())
+                using (var memoryStream = new MemoryStream())
                 {
                     var encoder = new PngBitmapEncoder();
                     encoder.Frames.Add(BitmapFrame.Create(source));
