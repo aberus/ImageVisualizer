@@ -41,6 +41,7 @@ namespace ImageVisualizer
                 {
                     sourceBitmap = method.Invoke(sourceBitmap, null);
                 }
+
                 if (sourceBitmap is System.Drawing.Bitmap)
                 {
                     BitmapSource bitmap = null;
@@ -72,9 +73,9 @@ namespace ImageVisualizer
                         DisplayImage.Source = bitmap;
                     }
                 }
-                else if (sourceBitmap is SerializableBitmapImage)
+                else if (sourceBitmap is SerializableBitmapImage source)
                 {
-                    DisplayImage.Source = (SerializableBitmapImage)sourceBitmap;
+                    DisplayImage.Source = source;
                 }
             }
         }

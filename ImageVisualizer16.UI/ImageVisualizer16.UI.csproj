@@ -8,8 +8,8 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ImageVisualizer</RootNamespace>
-    <AssemblyName>Aberus.VisualStudio.Debugger.ImageVisualizer</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <AssemblyName>Aberus.VisualStudio.Debugger.ImageVisualizer.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE;VS16</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     <DefineConstants>TRACE;VS16</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -37,7 +39,7 @@
     </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Preview\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -68,14 +70,8 @@
       <Link>ImageForm.Designer.cs</Link>
       <DependentUpon>ImageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ImageVisualizer14\ImageVisualizerObjectSource.cs">
-      <Link>ImageVisualizerObjectSource.cs</Link>
-    </Compile>
     <Compile Include="..\ImageVisualizer14\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\ImageVisualizer14\SerializableBitmapImage.cs">
-      <Link>SerializableBitmapImage.cs</Link>
     </Compile>
     <Compile Include="..\ImageVisualizer14\Visualizer.cs">
       <Link>Visualizer.cs</Link>
@@ -93,6 +89,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ImageVisualizer16.Common\ImageVisualizer16.Common.csproj">
+      <Project>{b271e1b1-bb78-4864-8db5-bc48fb1cb132}</Project>
+      <Name>ImageVisualizer16.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageVisualizer16.DebuggeeSide\ImageVisualizer16.DebuggeeSide.csproj">
+      <Project>{552d4ce4-ef94-4232-b8ea-c5f26e930220}</Project>
+      <Name>ImageVisualizer16.DebuggeeSide</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
