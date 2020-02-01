@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net35</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net40</TargetFrameworks>
     <RootNamespace>ImageVisualizer</RootNamespace>
     <UseWPF>true</UseWPF>
     <AssemblyName>Aberus.VisualStudio.Debugger.ImageVisualizer.Common</AssemblyName>

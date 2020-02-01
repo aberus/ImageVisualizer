@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net35</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net40</TargetFrameworks>
     <TargetFramework>net35</TargetFramework>
     <RootNamespace>ImageVisualizer</RootNamespace>
     <UseWPF>true</UseWPF>
@@ -23,7 +23,7 @@
     </Reference>
   </ItemGroup>
   
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers">
       <Private>False</Private>
       <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\Common7\Packages\Debugger\Visualizers\net2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
