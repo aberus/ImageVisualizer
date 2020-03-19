@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.0;net40</TargetFrameworks>
+    <RootNamespace>ImageVisualizer</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>Aberus.VisualStudio.Debugger.ImageVisualizer.Common</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ImageVisualizer14\SerializableBitmapImage.cs" Link="SerializableBitmapImage.cs" />
+  </ItemGroup>
+
+</Project>
