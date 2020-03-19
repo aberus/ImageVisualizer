@@ -345,8 +345,8 @@
     </ComponentGroup>
       <ComponentGroup Id="ImageVisualizer2019Net20Components" Directory="Visualizers_2019_Net20">
       <Component Id="ImageVisualizer2019Net20DllComponent" Guid="f848f4f0-a046-45ff-8cfc-e6b6e776115b" Transitive="yes">
-        <File Id="ImageVisualizer2019Net20CommonDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Source="$(var.ImageVisualizer16.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer16.DebuggeeSide.Configuration)\net35\Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Checksum="yes" />
-        <File Id="ImageVisualizer2019Net20DebuggeeSideDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" Source="$(var.ImageVisualizer16.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer16.DebuggeeSide.Configuration)\net35\Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" KeyPath="yes" Checksum="yes" />
+        <File Id="ImageVisualizer2019Net20CommonDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Source="$(var.ImageVisualizer16.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer16.DebuggeeSide.Configuration)\net40\Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Checksum="yes" />
+        <File Id="ImageVisualizer2019Net20DebuggeeSideDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" Source="$(var.ImageVisualizer16.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer16.DebuggeeSide.Configuration)\net40\Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" KeyPath="yes" Checksum="yes" />
       </Component>
     </ComponentGroup>
     <ComponentGroup Id="ImageVisualizer2019NetCoreAppComponents" Directory="Visualizers_2019_NetCoreApp">
