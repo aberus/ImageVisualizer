@@ -18,6 +18,10 @@ This extension works with:
 
 These are the changes to each version that has been released.
 
+### 0.7
+
+* Support for .NET Core 3.x
+
 ### 0.6
 
 * Support for VS 2019
