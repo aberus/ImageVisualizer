@@ -100,5 +100,10 @@
       <Name>ImageVisualizer16.DebuggeeSide</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.DpiAwareness">
+      <Version>6.5.29903</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

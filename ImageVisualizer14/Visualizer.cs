@@ -1,6 +1,9 @@
 ﻿using System;
 using ImageVisualizer;
 using Microsoft.VisualStudio.DebuggerVisualizers;
+#if VS16
+using Microsoft.VisualStudio.Utilities;
+#endif
 
 //System.Drawing.Bitmap
 [assembly: System.Diagnostics.DebuggerVisualizer(typeof(Visualizer), typeof(VisualizerObjectSource), Target = typeof(System.Drawing.Bitmap), Description = "Image Visualizer")]
@@ -10,7 +13,7 @@ using Microsoft.VisualStudio.DebuggerVisualizers;
 namespace ImageVisualizer
 {
     /// <summary>
-    /// A Visualizer for <see cref="System.Windows.Media.Imaging.BitmapImage"/> and <see cref="System.Drawing.Bitmap"/>.
+    /// A Visualizer for <see cref="System.Windows.Media.ImageSource"/> and <see cref="System.Drawing.Bitmap"/>.
     /// </summary>
     public class Visualizer : DialogDebuggerVisualizer
     {
@@ -20,7 +23,9 @@ namespace ImageVisualizer
                 throw new ArgumentNullException(nameof(windowService), "This debugger does not support modal visualizers.");
             if (objectProvider == null)
                 throw new ArgumentNullException(nameof(objectProvider));
-
+#if VS16
+            using (DpiAwareness.EnterDpiScope(DpiAwarenessContext.SystemAware))
+#endif
             using (var imageForm = new ImageForm(objectProvider))
             {
                 windowService.ShowDialog(imageForm);
