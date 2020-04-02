@@ -3,7 +3,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
-namespace ImageVisualizer
+namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
     public class ImageVisualizerObjectSource : VisualizerObjectSource
     {

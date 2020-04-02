@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0;net40</TargetFrameworks>
-    <RootNamespace>ImageVisualizer</RootNamespace>
+    <RootNamespace>Aberus.VisualStudio.Debugger.ImageVisualizer</RootNamespace>
     <UseWPF>true</UseWPF>
     <AssemblyName>Aberus.VisualStudio.Debugger.ImageVisualizer.Common</AssemblyName>
   </PropertyGroup>

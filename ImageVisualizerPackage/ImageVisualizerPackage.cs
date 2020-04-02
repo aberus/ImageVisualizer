@@ -17,7 +17,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
 
-namespace ImageVisualizer
+namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.

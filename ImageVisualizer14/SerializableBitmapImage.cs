@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Windows.Media.Imaging;
 
-namespace ImageVisualizer
+namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
     [Serializable]
     public class SerializableBitmapImage : ISerializable

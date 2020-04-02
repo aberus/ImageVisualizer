@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
-namespace ImageVisualizer
+namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
     public partial class ImageForm : Form
     {

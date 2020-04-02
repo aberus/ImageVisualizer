@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace ImageVisualizer
+namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
     /// <summary>
     /// Interaction logic for ImageControl.xaml

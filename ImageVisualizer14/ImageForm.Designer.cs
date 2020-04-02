@@ -1,4 +1,4 @@
-﻿namespace ImageVisualizer
+﻿namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
     partial class ImageForm
     {
@@ -31,7 +31,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.elementHost = new System.Windows.Forms.Integration.ElementHost();
-            this.imageControl = new ImageVisualizer.ImageControl();
+            this.imageControl = new ImageControl();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtExpression = new System.Windows.Forms.TextBox();

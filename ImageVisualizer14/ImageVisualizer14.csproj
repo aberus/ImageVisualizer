@@ -7,7 +7,7 @@
     <ProjectGuid>{318C7CE4-37EE-4185-945D-B7833677A29A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ImageVisualizer</RootNamespace>
+    <RootNamespace>Aberus.VisualStudio.Debugger.ImageVisualizer</RootNamespace>
     <AssemblyName>Aberus.VisualStudio.Debugger.ImageVisualizer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
