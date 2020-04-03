@@ -64,7 +64,7 @@
     </Compile>
     <Compile Include="ImageVisualizerObjectSource.cs" />
     <Compile Include="SerializableBitmapImage.cs" />
-    <Compile Include="Visualizer.cs" />
+    <Compile Include="ImageVisualizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -73,8 +73,8 @@
     <Compile Include="..\ImageVisualizer14\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\ImageVisualizer14\Visualizer.cs">
-      <Link>Visualizer.cs</Link>
+    <Compile Include="..\ImageVisualizer14\ImageVisualizer.cs">
+      <Link>ImageVisualizer.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
