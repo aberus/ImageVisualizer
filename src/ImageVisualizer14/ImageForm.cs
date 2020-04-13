@@ -1,12 +1,20 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
     public partial class ImageForm : Form
     {
+        [DllImport("gdi32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool DeleteObject(IntPtr hObject);
+
         public static Font UIFont
         {
             get
@@ -26,7 +34,7 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 #elif VS16
                 var dteProgID = "VisualStudio.DTE.16.0";
 #endif
-                var dte = (EnvDTE.DTE)System.Runtime.InteropServices.Marshal.GetActiveObject(dteProgID);
+                var dte = (EnvDTE.DTE)Marshal.GetActiveObject(dteProgID);
                 var fontProperty = dte.Properties["FontsAndColors", "Dialogs and Tool Windows"];
                 if (fontProperty != null)
                 {
@@ -39,7 +47,7 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                     return font;
                 }
 
-                return SystemFonts.DefaultFont;
+                return System.Drawing.SystemFonts.DefaultFont;
             }
         }
 
@@ -57,7 +65,53 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
             this.txtExpression.Font = UIFont;
             this.btnClose.Font = UIFont;
 
-            imageControl.SetImage(objectProvider.GetObject());
+            object objectBitmap = objectProvider.GetObject();
+            if (objectBitmap != null)
+            {
+#if DEBUG
+                string expression = objectBitmap.ToString();
+#endif
+
+                var method = objectBitmap.GetType().GetMethod("ToBitmap", new Type[] { });
+                if (method != null)
+                {
+                    objectBitmap = method.Invoke(objectBitmap, null);
+                }
+
+                BitmapSource bitmapSource = null;
+
+                if (objectBitmap is Bitmap)
+                {
+                    var hObject = ((Bitmap)objectBitmap).GetHbitmap();
+
+                    try
+                    {
+                        bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                               hObject,
+                               IntPtr.Zero,
+                               Int32Rect.Empty,
+                               BitmapSizeOptions.FromEmptyOptions());
+                    }
+                    catch (Win32Exception)
+                    {
+                        bitmapSource = null;
+                    }
+                    finally
+                    {
+                        DeleteObject(hObject);
+                    }
+                }
+                else if (objectBitmap is SerializableBitmapImage serializableBitmapImage)
+                {
+                    bitmapSource = serializableBitmapImage;
+                }
+
+                if (bitmapSource != null)
+                {
+                    imageControl.SetImage(bitmapSource);
+                }
+            }
+     
             txtExpression.Text = objectProvider.GetObject().ToString();
         }
 

@@ -17,10 +17,6 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
         Point? lastMousePositionOnTarget;
         Point? lastDragPoint;
 
-        [DllImport("gdi32")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool DeleteObject(IntPtr hObject);
-
         double _zoomValue = 1.0;
 
         public ImageControl()
@@ -28,55 +24,11 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
             InitializeComponent();
         }
 
-        public void SetImage(object sourceBitmap)
+        public void SetImage(ImageSource imageSource)
         {
-            if (sourceBitmap != null)
+            if (imageSource != null)
             {
-#if DEBUG
-                string expression = sourceBitmap.ToString();
-#endif
-
-                var method = sourceBitmap.GetType().GetMethod("ToBitmap", new Type[] { });
-                if (method != null)
-                {
-                    sourceBitmap = method.Invoke(sourceBitmap, null);
-                }
-
-                if (sourceBitmap is System.Drawing.Bitmap)
-                {
-                    BitmapSource bitmap = null;
-
-                    var hObject = ((System.Drawing.Bitmap)sourceBitmap).GetHbitmap();
-
-                    try
-                    {
-                        bitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                               hObject,
-                               IntPtr.Zero,
-                               Int32Rect.Empty,
-                               BitmapSizeOptions.FromEmptyOptions());
-                    }
-                    catch(Win32Exception)
-                    {
-                        bitmap = null;
-                    }
-                    finally
-                    {
-                        DeleteObject(hObject);
-                    }
-
-                    if(bitmap != null)
-                    {
-                        DisplayImage.Width = bitmap.Width;
-                        DisplayImage.Height = bitmap.Height;
-
-                        DisplayImage.Source = bitmap;
-                    }
-                }
-                else if (sourceBitmap is SerializableBitmapImage source)
-                {
-                    DisplayImage.Source = source;
-                }
+                DisplayImage.Source = imageSource;
             }
         }
 
