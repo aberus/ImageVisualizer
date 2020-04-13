@@ -11,5 +11,11 @@
                       MouseMove="DisplayScroll_MouseMove" PreviewMouseLeftButtonDown="DisplayScroll_PreviewMouseLeftButtonDown" MouseLeftButtonUp="DisplayScroll_MouseLeftButtonUp">
             <Image x:Name="DisplayImage" Stretch="None" SnapsToDevicePixels="True" HorizontalAlignment="Center" VerticalAlignment="Center" MouseWheel="DisplayImage_MouseWheel" />
         </ScrollViewer>
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" Orientation="Horizontal">
+            <Button Content="In" Width="25" Height="35" Click="Button_Click"/>
+            <Button Content="Fit" Width="25" Height="35" Click="Button_Click_1"/>
+            <Button Content="Out" Width="25" Height="35" Click="Button_Click_2"/>
+        </StackPanel>
+
     </Grid>
 </UserControl>

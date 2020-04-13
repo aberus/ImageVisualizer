@@ -28,33 +28,55 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
         {
             if (imageSource != null)
             {
+                //DisplayImage.Width = bitmap.Width;
+                //DisplayImage.Height = bitmap.Height;
+                //DisplayImage.Source = bitmap;
+
                 DisplayImage.Source = imageSource;
             }
         }
 
-        private void DisplayImage_MouseWheel(object sender, MouseWheelEventArgs e)
+        private double ZoomToFit()
         {
-            var p = Mouse.GetPosition(DisplayImage);
-            lastMousePositionOnTarget = p;
-     
-            if (e.Delta > 0)
+            if (DisplayImage.Source != null)
             {
-                _zoomValue += 0.1;
+                double width = DisplayScroll.ActualWidth;
+                double height = DisplayScroll.ActualHeight;
+                double imageWidth = DisplayImage.Source.Width;
+                double imageHeight = DisplayImage.Source.Height;
+                double zoom;
+                double aspectRatio;
+
+                if (imageWidth <= width || imageHeight <= height)
+                    return 1;
+
+                if (imageWidth > imageHeight)
+                {
+                    aspectRatio = width / imageWidth;
+                    zoom = aspectRatio;
+
+                    if (height < imageHeight * zoom)
+                    {
+                        aspectRatio = height / imageHeight;
+                        zoom = aspectRatio;
+                    }
+                }
+                else
+                {
+                    aspectRatio = height / imageHeight;
+                    zoom = aspectRatio;
+
+                    if (width < imageWidth * zoom)
+                    {
+                        aspectRatio = width / imageWidth;
+                        zoom = aspectRatio;
+                    }
+                }
+
+                return zoom;
             }
-            else if(e.Delta < 0)
-            {
-                _zoomValue -= 0.1;
-            }
 
-            if (_zoomValue <= 0)
-                _zoomValue = double.Epsilon;
-
-            var zoom = ZoomToFit();
-            if (_zoomValue < zoom)
-               _zoomValue = zoom;
-
-            var scale = new ScaleTransform(_zoomValue, _zoomValue);
-            DisplayImage.LayoutTransform = scale;
+            return -1;
         }
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
@@ -84,7 +106,7 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 
             DisplayScroll.UpdateLayout();
 
-            if(e.ViewportHeightChange != 0 || e.ViewportWidthChange != 0)
+            if (e.ViewportHeightChange != 0 || e.ViewportWidthChange != 0)
             {
                 _zoomValue = ZoomToFit();
                 var scale = new ScaleTransform(_zoomValue, _zoomValue);
@@ -111,8 +133,8 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                     double dXInTargetPixels = targetNow.Value.X - targetBefore.Value.X;
                     double dYInTargetPixels = targetNow.Value.Y - targetBefore.Value.Y;
 
-                    double multiplicatorX =  e.ExtentWidth / DisplayImage.ActualWidth;
-                    double multiplicatorY =  e.ExtentHeight / DisplayImage.ActualHeight;
+                    double multiplicatorX = e.ExtentWidth / DisplayImage.ActualWidth;
+                    double multiplicatorY = e.ExtentHeight / DisplayImage.ActualHeight;
 
                     double newOffsetX = DisplayScroll.HorizontalOffset - dXInTargetPixels * multiplicatorX;
                     double newOffsetY = DisplayScroll.VerticalOffset - dYInTargetPixels * multiplicatorY;
@@ -128,52 +150,9 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
             }
         }
 
-        private double ZoomToFit()
-        {
-            if (DisplayImage.Source != null)
-            {
-                double width = DisplayScroll.ActualWidth;
-                double height = DisplayScroll.ActualHeight;
-                double imageWidth = DisplayImage.Source.Width;
-                double imageHeight = DisplayImage.Source.Height;
-                double zoom;
-                double aspectRatio;
-
-                if(imageWidth <= width || imageHeight <= height)
-                    return 1;
-                
-                if (imageWidth > imageHeight)
-                {
-                    aspectRatio = width / imageWidth;
-                    zoom = aspectRatio;
-
-                   if (height < imageHeight * zoom)
-                   {
-                       aspectRatio = height / imageHeight;
-                       zoom = aspectRatio;
-                   }
-                }
-                else
-                {
-                    aspectRatio = height / imageHeight;
-                    zoom = aspectRatio;
-
-                    if (width < imageWidth * zoom)
-                    {
-                        aspectRatio = width / imageWidth;
-                        zoom = aspectRatio;
-                    }
-                }
-
-                return zoom;               
-            }
-
-            return -1;
-        }
-
         private void DisplayScroll_Loaded(object sender, RoutedEventArgs e)
         {
-            var zoom = ZoomToFit();
+            double zoom = ZoomToFit();
             if (zoom != -1)
             {
                 var scale = new ScaleTransform(zoom, zoom);
@@ -182,14 +161,39 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
             }
         }
 
+        private void DisplayImage_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var mousePosition = Mouse.GetPosition(DisplayImage);
+            lastMousePositionOnTarget = mousePosition;
+
+            if (e.Delta > 0)
+            {
+                _zoomValue += 0.1;
+            }
+            else if (e.Delta < 0)
+            {
+                _zoomValue -= 0.1;
+            }
+
+            if (_zoomValue <= 0)
+                _zoomValue = double.Epsilon;
+
+            double zoom = ZoomToFit();
+            if (_zoomValue < zoom)
+                _zoomValue = zoom;
+
+            var scale = new ScaleTransform(_zoomValue, _zoomValue);
+            DisplayImage.LayoutTransform = scale;
+        }
+
         private void DisplayScroll_MouseMove(object sender, MouseEventArgs e)
         {
-            if (lastDragPoint.HasValue)
+            if (lastDragPoint is Point lastPosition)
             {
-                Point posNow = e.GetPosition(DisplayScroll);
-                double dX = posNow.X - lastDragPoint.Value.X;
-                double dY = posNow.Y - lastDragPoint.Value.Y;
-                lastDragPoint = posNow;
+                var mousePosition = e.GetPosition(DisplayScroll);
+                double dX = mousePosition.X - lastPosition.X;
+                double dY = mousePosition.Y - lastPosition.Y;
+                lastDragPoint = mousePosition;
                 DisplayScroll.ScrollToHorizontalOffset(DisplayScroll.HorizontalOffset - dX);
                 DisplayScroll.ScrollToVerticalOffset(DisplayScroll.VerticalOffset - dY);
             }
@@ -211,6 +215,47 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
             DisplayScroll.Cursor = Cursors.Arrow;
             DisplayScroll.ReleaseMouseCapture();
             lastDragPoint = null;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _zoomValue += 0.1;
+
+            if (_zoomValue <= 0)
+                _zoomValue = double.Epsilon;
+
+            double zoom = ZoomToFit();
+            if (_zoomValue < zoom)
+                _zoomValue = zoom;
+
+            var scale = new ScaleTransform(_zoomValue, _zoomValue);
+            DisplayImage.LayoutTransform = scale;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            double zoom = ZoomToFit();
+            if (zoom != -1)
+            {
+                var scale = new ScaleTransform(zoom, zoom);
+                DisplayImage.LayoutTransform = scale;
+                _zoomValue = zoom;
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            _zoomValue -= 0.1;
+
+            if (_zoomValue <= 0)
+                _zoomValue = double.Epsilon;
+
+            double zoom = ZoomToFit();
+            if (_zoomValue < zoom)
+                _zoomValue = zoom;
+
+            var scale = new ScaleTransform(_zoomValue, _zoomValue);
+            DisplayImage.LayoutTransform = scale;
         }
     }
 }
