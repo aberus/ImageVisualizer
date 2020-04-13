@@ -28,7 +28,8 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 #endif
             using (var imageForm = new ImageForm(objectProvider))
             {
-                windowService.ShowDialog(imageForm);
+
+                 windowService.ShowDialog(imageForm);
             }
         }
 
