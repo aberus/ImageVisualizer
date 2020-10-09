@@ -91,7 +91,8 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                 using (var memoryStream = new MemoryStream())
                 {
                     var encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(source));
+                    //TODO try/catch
+                    encoder.Frames.Add(BitmapFrame.Create(source)); 
                     encoder.Save(memoryStream);
                     memoryStream.Seek(0, SeekOrigin.Begin);
 
