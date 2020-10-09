@@ -1,6 +1,4 @@
-﻿Imports System.IO
-
-Module Module1
+﻿Module Module1
 
     Sub Main()
 
@@ -15,7 +13,7 @@ Module Module1
 
         Dim image3 = New System.Windows.Media.Imaging.BitmapImage() 'new Uri("VisualStudio256_256.png", UriKind.Relative));
         image3.BeginInit()
-        image3.StreamSource = New FileStream("VisualStudio256_256.png", FileMode.Open)
+        image3.StreamSource = New System.IO.FileStream("VisualStudio256_256.png", System.IO.FileMode.Open)
         image3.EndInit()
         'Debugger.Break()
 
