@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.DebuggerVisualizers;
 using Microsoft.VisualStudio.Utilities;
 #endif
 
-// System.Drawing.Bitmap
+//System.Drawing.Image, System.Drawing.Bitmap
 [assembly: System.Diagnostics.DebuggerVisualizer(
     typeof(ImageVisualizer),
 #if VS16
@@ -13,7 +13,7 @@ using Microsoft.VisualStudio.Utilities;
 #else
     typeof(VisualizerObjectSource),
 #endif
-    Target = typeof(System.Drawing.Bitmap), 
+    Target = typeof(System.Drawing.Image), 
     Description = "Image Visualizer")]
 
 // System.Windows.Media.ImageSource, System.Windows.Media.Imaging.BitmapImage, System.Windows.Media.Imaging.BitmapSource

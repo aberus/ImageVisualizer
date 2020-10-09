@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Aberus.VisualStudio.Debugger.ImageVisualizer
@@ -13,6 +14,11 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
         private readonly string expression;
 
         public BitmapImage Image { get; private set; }
+
+        public SerializableBitmapImage(ImageSource image )
+        {
+            bitmapSource = image as BitmapSource;
+        }
 
         public SerializableBitmapImage(BitmapImage image)
         {
