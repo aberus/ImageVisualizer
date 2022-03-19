@@ -7,8 +7,12 @@ using Microsoft.VisualStudio.Utilities;
 
 // System.Drawing.Bitmap
 [assembly: System.Diagnostics.DebuggerVisualizer(
-    typeof(ImageVisualizer), 
-    typeof(VisualizerObjectSource), 
+    typeof(ImageVisualizer),
+#if VS16
+    typeof(ImageVisualizerBitmapObjectSource),
+#else
+    typeof(VisualizerObjectSource),
+#endif
     Target = typeof(System.Drawing.Bitmap), 
     Description = "Image Visualizer")]
 
