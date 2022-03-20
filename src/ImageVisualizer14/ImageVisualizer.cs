@@ -16,17 +16,17 @@ using Microsoft.VisualStudio.Utilities;
     Target = typeof(System.Drawing.Bitmap), 
     Description = "Image Visualizer")]
 
-// System.Windows.Media.ImageSource, System.Windows.Media.Imaging.BitmapImage, System.Windows.Media.Imaging.BitmapSource
+// System.Windows.Media.Imaging.BitmapImage, System.Windows.Media.Imaging.BitmapSource
 [assembly: System.Diagnostics.DebuggerVisualizer(
     typeof(ImageVisualizer), 
     typeof(ImageVisualizerObjectSource), 
-    Target = typeof(System.Windows.Media.ImageSource), 
+    Target = typeof(System.Windows.Media.Imaging.BitmapSource), 
     Description = "Image Visualizer")]
 
 namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
     /// <summary>
-    /// A Visualizer for <see cref="System.Windows.Media.ImageSource"/> and <see cref="System.Drawing.Bitmap"/>.
+    /// A Visualizer for <see cref="System.Windows.Media.Imaging.BitmapSource"/> and <see cref="System.Drawing.Bitmap"/>.
     /// </summary>
     public class ImageVisualizer : DialogDebuggerVisualizer
     {

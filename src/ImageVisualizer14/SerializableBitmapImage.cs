@@ -12,11 +12,9 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
         public BitmapSource bitmapSource;
         private readonly string expression;
 
-        public BitmapImage Image { get; private set; }
-
         public SerializableBitmapImage(BitmapImage image)
         {
-            this.Image = image;
+            bitmapSource = image;
         }
 
         public SerializableBitmapImage(BitmapSource source)
@@ -37,12 +35,14 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                             var stream = new MemoryStream(array);
                             stream.Seek(0, SeekOrigin.Begin);
 
-                            Image = new BitmapImage();
-                            Image.CacheOption = BitmapCacheOption.OnLoad;
-                            Image.BeginInit();
-                            Image.StreamSource = stream;
-                            Image.EndInit();
-                            Image.Freeze();
+                            var bitmapImage = new BitmapImage();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.BeginInit();
+                            bitmapImage.StreamSource = stream;
+                            bitmapImage.EndInit();
+                            bitmapImage.Freeze();
+
+                            bitmapSource = bitmapImage;
                         }
                     }
                     catch (ExternalException)
@@ -78,28 +78,26 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 
         public static implicit operator BitmapImage(SerializableBitmapImage serializableBitmapImage)
         {
-            return serializableBitmapImage.Image;
+            return (BitmapImage)serializableBitmapImage.bitmapSource;
         }
 
         //[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            var source = Image ?? bitmapSource;
-
-            if (source != null)
+            if (bitmapSource != null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
                     var encoder = new PngBitmapEncoder();
                     //TODO try/catch
-                    encoder.Frames.Add(BitmapFrame.Create(source)); 
+                    encoder.Frames.Add(BitmapFrame.Create(bitmapSource)); 
                     encoder.Save(memoryStream);
                     memoryStream.Seek(0, SeekOrigin.Begin);
 
                     info.AddValue("Image", memoryStream.ToArray(), typeof(byte[]));
                 }
 
-                info.AddValue("Name", source.ToString());
+                info.AddValue("Name", bitmapSource.ToString());
             }
         }
 
