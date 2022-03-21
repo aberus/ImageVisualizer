@@ -22,7 +22,7 @@
         Dim height As Integer = 720
         Dim rawStride As Integer = (width * pixelFormat.BitsPerPixel + 7) / 8
         Dim rawImage As Byte() = New Byte(rawStride * height - 1) {}
-        Dim value As Random = New Random()
+        Dim value As New Random()
         value.NextBytes(rawImage)
         Dim image4 = System.Windows.Media.Imaging.BitmapSource.Create(width, height, 96, 96, pixelFormat, Nothing, rawImage, rawStride)
         Debugger.Break()

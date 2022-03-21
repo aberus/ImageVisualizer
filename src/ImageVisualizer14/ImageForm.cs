@@ -20,28 +20,28 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
             get
             {
 #if VS10
-                var dteProgID = "VisualStudio.DTE.10.0";
+                string dteProgID = "VisualStudio.DTE.10.0";
 #elif VS11
-                var dteProgID = "VisualStudio.DTE.11.0";
+                string dteProgID = "VisualStudio.DTE.11.0";
 #elif VS12
-                var dteProgID = "VisualStudio.DTE.12.0";
+                string dteProgID = "VisualStudio.DTE.12.0";
 #elif VS13
-                var dteProgID = "VisualStudio.DTE.13.0";
+                string dteProgID = "VisualStudio.DTE.13.0";
 #elif VS14
-                var dteProgID = "VisualStudio.DTE.14.0";
+                string dteProgID = "VisualStudio.DTE.14.0";
 #elif VS15
-                var dteProgID = "VisualStudio.DTE.15.0";
+                string dteProgID = "VisualStudio.DTE.15.0";
 #elif VS16
-                var dteProgID = "VisualStudio.DTE.16.0";
+                string dteProgID = "VisualStudio.DTE.16.0";
 #endif
                 var dte = (EnvDTE.DTE)Marshal.GetActiveObject(dteProgID);
                 var fontProperty = dte.Properties["FontsAndColors", "Dialogs and Tool Windows"];
                 if (fontProperty != null)
                 {
                     object objValue = fontProperty.Item("FontFamily").Value;
-                    var fontFamily = objValue.ToString();
+                    string fontFamily = objValue.ToString();
                     objValue = fontProperty.Item("FontSize").Value;
-                    var fontSize = Convert.ToSingle(objValue);
+                    float fontSize = Convert.ToSingle(objValue);
                     var font = new Font(fontFamily, fontSize);
 
                     return font;
@@ -83,7 +83,7 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                 if (objectBitmap is Bitmap)
                 {
                     var hObject = ((Bitmap)objectBitmap).GetHbitmap();
-
+                    
                     try
                     {
                         bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(

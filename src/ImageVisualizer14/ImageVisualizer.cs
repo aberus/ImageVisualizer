@@ -5,15 +5,28 @@ using Microsoft.VisualStudio.DebuggerVisualizers;
 using Microsoft.VisualStudio.Utilities;
 #endif
 
-//System.Drawing.Bitmap
-[assembly: System.Diagnostics.DebuggerVisualizer(typeof(ImageVisualizer), typeof(VisualizerObjectSource), Target = typeof(System.Drawing.Bitmap), Description = "Image Visualizer")]
-//System.Windows.Media.ImageSource, System.Windows.Media.Imaging.BitmapImage, System.Windows.Media.Imaging.BitmapSource
-[assembly: System.Diagnostics.DebuggerVisualizer(typeof(ImageVisualizer), typeof(ImageVisualizerObjectSource), Target = typeof(System.Windows.Media.ImageSource), Description = "Image Visualizer")]
+// System.Drawing.Bitmap
+[assembly: System.Diagnostics.DebuggerVisualizer(
+    typeof(ImageVisualizer),
+#if VS16
+    typeof(ImageVisualizerBitmapObjectSource),
+#else
+    typeof(VisualizerObjectSource),
+#endif
+    Target = typeof(System.Drawing.Bitmap), 
+    Description = "Image Visualizer")]
+
+// System.Windows.Media.Imaging.BitmapImage, System.Windows.Media.Imaging.BitmapSource
+[assembly: System.Diagnostics.DebuggerVisualizer(
+    typeof(ImageVisualizer), 
+    typeof(ImageVisualizerObjectSource), 
+    Target = typeof(System.Windows.Media.Imaging.BitmapSource), 
+    Description = "Image Visualizer")]
 
 namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
     /// <summary>
-    /// A Visualizer for <see cref="System.Windows.Media.ImageSource"/> and <see cref="System.Drawing.Bitmap"/>.
+    /// A Visualizer for <see cref="System.Windows.Media.Imaging.BitmapSource"/> and <see cref="System.Drawing.Bitmap"/>.
     /// </summary>
     public class ImageVisualizer : DialogDebuggerVisualizer
     {

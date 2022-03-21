@@ -9,8 +9,8 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
     {
         public override void GetData(object target, Stream outgoingData)
         {
-            if (target is ImageSource image)
-                base.GetData(new SerializableBitmapImage((BitmapSource)image), outgoingData);
+            if (target is BitmapSource image)
+                base.GetData(new SerializableBitmapImage(image), outgoingData);
             else
                 base.GetData(target, outgoingData);
         }
