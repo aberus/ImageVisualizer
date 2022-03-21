@@ -29,6 +29,7 @@
     <PropertyRef Id="VS2015_ROOT_FOLDER" />
     <PropertyRef Id="VS2017_ROOT_FOLDER" />
     <PropertyRef Id="VS2019_ROOT_FOLDER" />
+    <PropertyRef Id="VS2022_ROOT_FOLDER" />
 
     <PropertyRef Id="VS2010_EXTENSIONS_DIR" />
     <PropertyRef Id="VS2012_EXTENSIONS_DIR" />
@@ -36,6 +37,7 @@
     <PropertyRef Id="VS2015_EXTENSIONS_DIR" />
     <PropertyRef Id="VS2017_EXTENSIONS_DIR" />
     <PropertyRef Id="VS2019_EXTENSIONS_DIR" />
+    <PropertyRef Id="VS2022_EXTENSIONS_DIR" />
 
     <PropertyRef Id="VS2010DEVENV" />
     <PropertyRef Id="VS2012DEVENV" />
@@ -43,6 +45,7 @@
     <PropertyRef Id="VS2015DEVENV" />
     <PropertyRef Id="VS2017DEVENV" />
     <PropertyRef Id="VS2019DEVENV" />
+    <PropertyRef Id="VS2022DEVENV" />
 
     <CustomAction Id="VS2012TouchExtensions"
                   Directory='VS2012_EXTENSIONS_DIR'
@@ -74,6 +77,13 @@
 
     <CustomAction Id="VS2019TouchExtensions"
               Directory='VS2019_EXTENSIONS_DIR'
+              Execute="deferred"
+              Impersonate="no"
+              ExeCommand="[SystemFolder]cmd.exe /c &quot;copy /b extensions.configurationchanged +,,&quot;"
+              Return="ignore" />
+    
+    <CustomAction Id="VS2022TouchExtensions"
+              Directory='VS2022_EXTENSIONS_DIR'
               Execute="deferred"
               Impersonate="no"
               ExeCommand="[SystemFolder]cmd.exe /c &quot;copy /b extensions.configurationchanged +,,&quot;"
@@ -111,6 +121,13 @@
         <ComponentGroupRef Id="ImageVisualizer2019NetCoreAppComponents" />
         <ComponentGroupRef Id="ImageVisualizer2019VsixComponents"/>
       </Feature>
+      <Feature Id="ProductFeature17" Title="Microsoft Visual Studio 2022" Level="2">
+        <Condition Level="1"><![CDATA[VS2022_ROOT_FOLDER AND VS2022DEVENV]]></Condition>
+        <ComponentGroupRef Id="ImageVisualizer2022Components" />
+        <ComponentGroupRef Id="ImageVisualizer2022Net20Components" />
+        <ComponentGroupRef Id="ImageVisualizer2022NetCoreAppComponents" />
+        <ComponentGroupRef Id="ImageVisualizer2022VsixComponents"/>
+      </Feature>
     </Feature>
 
     <UIRef Id="WixUI_FeatureTree" />
@@ -130,6 +147,9 @@
       </Custom>
       <Custom Action="VS2019TouchExtensions" After="InstallFiles">
         <![CDATA[&ProductFeature16=3]]>
+      </Custom>
+      <Custom Action="VS2022TouchExtensions" After="InstallFiles">
+        <![CDATA[&ProductFeature17=3]]>
       </Custom>
     </InstallExecuteSequence>
 
@@ -218,6 +238,21 @@
         </Directory>
         <Directory Id="VS2019_EXTENSIONS_DIR" Name="Extensions">
           <Directory Id="ImageVisualizer_2019" Name="ImageVisualizer" />
+        </Directory>
+      <Directory Id="VS2022_ROOT_FOLDER" Name="Microsoft Visual Studio 17.0">
+          <Directory Id="Common7_2022" Name="Common7">
+            <Directory Id="Packages_2022" Name="Packages">
+              <Directory Id="Debugger_2022" Name="Debugger">
+                <Directory Id="Visualizers_2022" Name="Visualizers">
+                  <Directory Id="Visualizers_2022_Net20" Name="net2.0" />
+                  <Directory Id="Visualizers_2022_NetCoreApp" Name="netcoreapp" />
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+        <Directory Id="VS2022_EXTENSIONS_DIR" Name="Extensions">
+          <Directory Id="ImageVisualizer_2022" Name="ImageVisualizer" />
         </Directory>
       </Directory>
     </Directory>
@@ -311,11 +346,6 @@
       <Component Id="ImageVisualizer2017DllComponent" Guid="07cf3d02-cb8a-48d0-af50-5065a2d4cf35" Transitive="yes">
         <File Id="ImageVisualizer2017Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.dll" Source="$(var.ImageVisualizer15.TargetPath)" KeyPath="yes" Checksum="yes" />
       </Component>
-      <!--<Component Id="ImageVisualizerVsix15Component" Guid="d255d924-61e5-4687-bfc4-3000d83a7e06">
-        <File Id="ImageVisualizer15Vsix" Name="ImageVisualizer.vsix" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.vsix" Vital="yes">
-          <VSExtension:VsixPackage PackageId="2443c97f-77f2-47ea-b473-7f34832b2f86" Target="professional" TargetVersion="15.0" Permanent="no" Vital="yes" />
-        </File>
-      </Component>-->
     </ComponentGroup>
     <ComponentGroup Id="ImageVisualizer2017VsixComponents" Directory="ImageVisualizer_2017">
       <Component Id="ImageVisualizer2017PkgdefComponent" Guid="ecfe0e9b-e734-4bb0-a66e-a776c08fd92d">
@@ -370,6 +400,44 @@
       </Component>
       <Component Id="ImageVisualizer2019VsixDllComponent" Guid="e6274b19-1a72-4e22-a068-a11b754e4242">
         <File Id="ImageVisualizer2019VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ImageVisualizer2022Components" Directory="Visualizers_2022">
+      <Component Id="ImageVisualizer2022DllComponent" Guid="BA6E5590-BCF2-4B40-8F5E-4FEE7418BC4D" Transitive="yes">
+        <File Id="ImageVisualizer2022Dll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.UI.dll" Source="$(var.ImageVisualizer17.UI.TargetPath)" KeyPath="yes" Checksum="yes" />
+        <File Id="ImageVisualizer2022CommonDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Source="$(var.ImageVisualizer17.UI.TargetDir)Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Checksum="yes" />
+      </Component>
+    </ComponentGroup>
+      <ComponentGroup Id="ImageVisualizer2022Net20Components" Directory="Visualizers_2022_Net20">
+      <Component Id="ImageVisualizer2022Net20DllComponent" Guid="6AA83B51-E746-4711-B7DA-63FEADF3FAB3" Transitive="yes">
+        <File Id="ImageVisualizer2022Net20CommonDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Source="$(var.ImageVisualizer17.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer17.DebuggeeSide.Configuration)\net40\Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Checksum="yes" />
+        <File Id="ImageVisualizer2022Net20DebuggeeSideDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" Source="$(var.ImageVisualizer17.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer17.DebuggeeSide.Configuration)\net40\Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="ImageVisualizer2022NetCoreAppComponents" Directory="Visualizers_2022_NetCoreApp">
+      <Component Id="ImageVisualizer2022NetCoreAppDllComponent" Guid="B2CBB2F3-68A5-4420-9044-368A2C5CA32D" Transitive="yes">
+        <File Id="ImageVisualizer2022NetCoreAppCommonDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Source="$(var.ImageVisualizer17.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer17.DebuggeeSide.Configuration)\netcoreapp3.0\Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Checksum="yes" />
+        <File Id="ImageVisualizer2022NetCoreAppDebuggeeSideDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" Source="$(var.ImageVisualizer17.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer17.DebuggeeSide.Configuration)\netcoreapp3.0\Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="ImageVisualizer2022VsixComponents" Directory="ImageVisualizer_2022">
+      <Component Id="ImageVisualizer2022PkgdefComponent" Guid="BBA8F339-A804-40E2-9DCD-85F797C005B3">
+        <File Id="ImageVisualizer2022Pkgdef" Name="ImageVisualizer.pkgdef" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.pkgdef" Vital="yes" KeyPath="yes"/>
+      </Component>
+      <Component Id="ImageVisualizer2022VsixManifestComponent" Guid="AA8887E6-7F31-4A98-A1C1-3994F1A1F27D">
+        <File Id="ImageVisualizer2022VsixManifest" Name="extension.vsixmanifest" Source="$(var.ImageVisualizerPackage.TargetDir)extension.vsixmanifest" Vital="yes" KeyPath="yes"/>
+      </Component>
+      <Component Id="ImageVisualizer2022VsixIconComponent" Guid="345C0800-68B5-43CA-9230-FD4B49FC8B3D">
+        <File Id="ImageVisualizer2022VsixIcon" Source="$(var.ImageVisualizerPackage.TargetDir)Logo_128x.png" KeyPath="yes"/>
+      </Component>
+      <Component Id="ImageVisualizer2022VsixPreviewComponent" Guid="D3EE8B41-8ADC-4ED8-A759-7C3EBD3CFF98">
+        <File Id="ImageVisualizer2022VsixPreview" Source="$(var.ImageVisualizerPackage.TargetDir)Preview_200x.png" KeyPath="yes"/>
+      </Component>
+      <Component Id="ImageVisualizer2022VsixDllComponent" Guid="1CB6E8D1-2BF2-487B-80C6-8C03B990CA60">
+        <File Id="ImageVisualizer2022VsixDll" Name="ImageVisualizer.dll" Source="$(var.ImageVisualizerPackage.TargetDir)ImageVisualizer.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
   </Fragment>

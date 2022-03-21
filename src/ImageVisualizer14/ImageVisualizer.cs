@@ -1,7 +1,7 @@
 ﻿using System;
 using Aberus.VisualStudio.Debugger.ImageVisualizer;
 using Microsoft.VisualStudio.DebuggerVisualizers;
-#if VS16
+#if VS16 || VS17
 using Microsoft.VisualStudio.Utilities;
 #endif
 
@@ -36,7 +36,8 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                 throw new ArgumentNullException(nameof(windowService), "This debugger does not support modal visualizers.");
             if (objectProvider == null)
                 throw new ArgumentNullException(nameof(objectProvider));
-#if VS16
+
+#if VS16 || VS17
             using (DpiAwareness.EnterDpiScope(DpiAwarenessContext.SystemAware))
 #endif
             using (var imageForm = new ImageForm(objectProvider))
