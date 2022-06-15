@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32228.343
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32611.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageVisualizer10", "ImageVisualizer10\ImageVisualizer10.csproj", "{8377674C-A112-4DC9-9745-926434AE7B2E}"
 EndProject
@@ -108,12 +108,12 @@ Global
 		{552D4CE4-EF94-4232-B8EA-C5F26E930220}.Release|x86.Build.0 = Release|Any CPU
 		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Debug|x86.Build.0 = Debug|Any CPU
+		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Debug|x86.ActiveCfg = Debug|x86
+		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Debug|x86.Build.0 = Debug|x86
 		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Release|x86.ActiveCfg = Release|Any CPU
-		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Release|x86.Build.0 = Release|Any CPU
+		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Release|x86.ActiveCfg = Release|x86
+		{FB4C20B3-659C-4D7E-9832-7BFB165DF2E0}.Release|x86.Build.0 = Release|x86
 		{49BAF40F-9365-482B-BC8E-43557931B415}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{49BAF40F-9365-482B-BC8E-43557931B415}.Debug|Any CPU.Build.0 = Debug|x86
 		{49BAF40F-9365-482B-BC8E-43557931B415}.Debug|x86.ActiveCfg = Debug|x86

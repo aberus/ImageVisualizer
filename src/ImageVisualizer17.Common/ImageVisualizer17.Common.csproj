@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Compile Include="..\ImageVisualizer14\SerializableBitmapImage.cs" Link="SerializableBitmapImage.cs" />
+    <Compile Include="..\ImageVisualizer16.Common\SerializableBitmap.cs" Link="SerializableBitmap.cs" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">

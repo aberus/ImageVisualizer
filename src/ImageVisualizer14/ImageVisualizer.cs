@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.Utilities;
 // System.Drawing.Bitmap
 [assembly: System.Diagnostics.DebuggerVisualizer(
     typeof(ImageVisualizer),
-#if VS16
+#if VS16 || VS17
     typeof(ImageVisualizerBitmapObjectSource),
 #else
     typeof(VisualizerObjectSource),

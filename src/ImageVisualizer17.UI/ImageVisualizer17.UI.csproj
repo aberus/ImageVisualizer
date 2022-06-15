@@ -91,19 +91,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImageVisualizer16.Common\ImageVisualizer16.Common.csproj">
-      <Project>{b271e1b1-bb78-4864-8db5-bc48fb1cb132}</Project>
-      <Name>ImageVisualizer16.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ImageVisualizer16.DebuggeeSide\ImageVisualizer16.DebuggeeSide.csproj">
-      <Project>{552d4ce4-ef94-4232-b8ea-c5f26e930220}</Project>
-      <Name>ImageVisualizer16.DebuggeeSide</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ImageVisualizer17.Common\ImageVisualizer17.Common.csproj">
       <Project>{14eeba2b-b2b1-491b-800e-bcc181cfb8fc}</Project>
       <Name>ImageVisualizer17.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ImageVisualizer17.DebuggeeSide\ImageVisualizer17.DebuggeeSide.csproj">
+	<ProjectReference Include="..\ImageVisualizer17.DebuggeeSide\ImageVisualizer17.DebuggeeSide.csproj">
       <Project>{2faa5bdc-192b-4eb7-a7d1-f69f74be8223}</Project>
       <Name>ImageVisualizer17.DebuggeeSide</Name>
     </ProjectReference>

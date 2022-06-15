@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Include="..\ImageVisualizer14\ImageVisualizerObjectSource.cs" Link="ImageVisualizerObjectSource.cs" />
+    <Compile Include="..\ImageVisualizer16.DebuggeeSide\ImageVisualizerBitmapObjectSource.cs" Link="ImageVisualizerBitmapObjectSource.cs" />
   </ItemGroup>
 
   <ItemGroup>

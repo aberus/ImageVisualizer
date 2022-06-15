@@ -19,14 +19,14 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers">
       <Private>False</Private>
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\Common7\Packages\Debugger\Visualizers\netstandard2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Packages\Debugger\Visualizers\netstandard2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
     </Reference>
   </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers">
       <Private>False</Private>
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\Common7\Packages\Debugger\Visualizers\net2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Packages\Debugger\Visualizers\net2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
     </Reference>
   </ItemGroup>
   
