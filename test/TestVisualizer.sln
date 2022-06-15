@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29721.120
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32611.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestVisualizerCS", "TestVisualizerCS\TestVisualizerCS.csproj", "{CBD84815-3DF2-43E9-B483-178DC89054E8}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestVisualizerCSCore30", "TestVisualizerCSCore30\TestVisualizerCSCore30.csproj", "{3929F1CD-A5AB-4466-B13E-591BB16C391C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestVisualizerCSCore31", "TestVisualizerCSCore31\TestVisualizerCSCore31.csproj", "{96B645E2-C457-4150-9F09-184201E2D270}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestVisualizerCSNet60", "TestVisualizerCSNet60\TestVisualizerCSNet60.csproj", "{644D4DBB-C6BA-48BF-B80E-CC67A18AA0E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{96B645E2-C457-4150-9F09-184201E2D270}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96B645E2-C457-4150-9F09-184201E2D270}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96B645E2-C457-4150-9F09-184201E2D270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{644D4DBB-C6BA-48BF-B80E-CC67A18AA0E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{644D4DBB-C6BA-48BF-B80E-CC67A18AA0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{644D4DBB-C6BA-48BF-B80E-CC67A18AA0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{644D4DBB-C6BA-48BF-B80E-CC67A18AA0E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
