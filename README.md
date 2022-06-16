@@ -13,12 +13,16 @@ If you want to support the developement you could consider buying me a coffee.
 ![](https://aleksanderberus.gallerycdn.vsassets.io/extensions/aleksanderberus/debuggerimagevisualizerpreview/0.6.0/1556274284741/219157/1/Preview.gif)
 
 ## Works with
-* Visual Studio 2010
-* Visual Studio 2012
-* Visual Studio 2013
-* Visual Studio 2015
-* Visual Studio 2017
+
+* Visual Studio 2022
 * Visual Studio 2019
+* Visual Studio 2017
+* Visual Studio 2015
+* Visual Studio 2013
+* Visual Studio 2012
+* Visual Studio 2010
+
+.NET Framework 4.0+, .NET Core 3.1+, .NET 6.0+
 
 ## Install
 
