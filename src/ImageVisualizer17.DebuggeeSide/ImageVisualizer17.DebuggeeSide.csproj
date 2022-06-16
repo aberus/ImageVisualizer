@@ -10,26 +10,27 @@
 
   <ItemGroup>
     <Compile Include="..\ImageVisualizer14\ImageVisualizerObjectSource.cs" Link="ImageVisualizerObjectSource.cs" />
+    <Compile Include="..\ImageVisualizer16.DebuggeeSide\ImageVisualizerBitmapObjectSource.cs" Link="ImageVisualizerBitmapObjectSource.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ImageVisualizer16.Common\ImageVisualizer16.Common.csproj" />
+    <ProjectReference Include="..\ImageVisualizer17.Common\ImageVisualizer17.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers">
       <Private>False</Private>
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Packages\Debugger\Visualizers\netstandard2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\Packages\Debugger\Visualizers\netstandard2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
     </Reference>
   </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers">
       <Private>False</Private>
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Packages\Debugger\Visualizers\net2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\Packages\Debugger\Visualizers\net2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
     </Reference>
   </ItemGroup>
-  
+
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
     <PackageReference Include="System.Drawing.Common">
       <Version>4.5.0</Version>

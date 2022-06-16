@@ -33,6 +33,8 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                 string dteProgID = "VisualStudio.DTE.15.0";
 #elif VS16
                 string dteProgID = "VisualStudio.DTE.16.0";
+#elif VS17
+                string dteProgID = "VisualStudio.DTE.17.0";
 #endif
                 var dte = (EnvDTE.DTE)Marshal.GetActiveObject(dteProgID);
                 var fontProperty = dte.Properties["FontsAndColors", "Dialogs and Tool Windows"];

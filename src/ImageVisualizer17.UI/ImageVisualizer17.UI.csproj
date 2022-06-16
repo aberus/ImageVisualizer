@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{63D1D741-7C82-447B-B5F8-68B3BE3470D2}</ProjectGuid>
+    <ProjectGuid>{9432AFAF-EEBD-424B-A181-271E9F2A00F7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Aberus.VisualStudio.Debugger.ImageVisualizer</RootNamespace>
     <AssemblyName>Aberus.VisualStudio.Debugger.ImageVisualizer.UI</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;VS16</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;VS17</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;VS16</DefineConstants>
+    <DefineConstants>TRACE;VS17</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -37,9 +37,9 @@
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -91,18 +91,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImageVisualizer16.Common\ImageVisualizer16.Common.csproj">
-      <Project>{b271e1b1-bb78-4864-8db5-bc48fb1cb132}</Project>
-      <Name>ImageVisualizer16.Common</Name>
+    <ProjectReference Include="..\ImageVisualizer17.Common\ImageVisualizer17.Common.csproj">
+      <Project>{14eeba2b-b2b1-491b-800e-bcc181cfb8fc}</Project>
+      <Name>ImageVisualizer17.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ImageVisualizer16.DebuggeeSide\ImageVisualizer16.DebuggeeSide.csproj">
-      <Project>{552d4ce4-ef94-4232-b8ea-c5f26e930220}</Project>
-      <Name>ImageVisualizer16.DebuggeeSide</Name>
+	<ProjectReference Include="..\ImageVisualizer17.DebuggeeSide\ImageVisualizer17.DebuggeeSide.csproj">
+      <Project>{2faa5bdc-192b-4eb7-a7d1-f69f74be8223}</Project>
+      <Name>ImageVisualizer17.DebuggeeSide</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.DpiAwareness">
-      <Version>6.5.29903</Version>
+      <Version>7.1.32210</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
