@@ -79,13 +79,13 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                 {
                     objectBitmap = method.Invoke(objectBitmap, null);
                 }
-
+                
                 BitmapSource bitmapSource = null;
 
                 if (objectBitmap is Bitmap)
                 {
                     var hObject = ((Bitmap)objectBitmap).GetHbitmap();
-                    
+
                     try
                     {
                         bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
@@ -103,6 +103,29 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                         DeleteObject(hObject);
                     }
                 }
+#if VS16 || VS17
+                else if(objectBitmap is SerializableBitmap x)
+                {
+                    var hObject = ((Bitmap)x).GetHbitmap();
+
+                    try
+                    {
+                        bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                               hObject,
+                               IntPtr.Zero,
+                               Int32Rect.Empty,
+                               BitmapSizeOptions.FromEmptyOptions());
+                    }
+                    catch (Win32Exception)
+                    {
+                        bitmapSource = null;
+                    }
+                    finally
+                    {
+                        DeleteObject(hObject);
+                    }
+                }
+#endif
                 else if (objectBitmap is SerializableBitmapImage serializableBitmapImage)
                 {
                     bitmapSource = serializableBitmapImage;
