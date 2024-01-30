@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?define ProductVersion = "1.0.1"?>
+<?define ProductVersion = "1.1.0"?>
 <?define ProductUpgradeCode = "5a2e7ccd-6ced-4a6b-9745-d8d73ed070cc"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:VSExtension="http://schemas.microsoft.com/wix/VSExtension">
   <Product Id="*" Name="Debugger Image Visualizer for Visual Studio" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Aleksander Berus" UpgradeCode="$(var.ProductUpgradeCode)">
@@ -124,7 +124,7 @@
       <Feature Id="ProductFeature17" Title="Microsoft Visual Studio 2022" Level="2">
         <Condition Level="1"><![CDATA[VS2022_ROOT_FOLDER AND VS2022DEVENV]]></Condition>
         <ComponentGroupRef Id="ImageVisualizer2022Components" />
-        <ComponentGroupRef Id="ImageVisualizer2022Net20Components" />
+        <ComponentGroupRef Id="ImageVisualizer2022Net462Components" />
         <ComponentGroupRef Id="ImageVisualizer2022NetCoreAppComponents" />
         <ComponentGroupRef Id="ImageVisualizer2022VsixComponents"/>
       </Feature>
@@ -246,8 +246,8 @@
                     <Directory Id="Packages_2022" Name="Packages">
                         <Directory Id="Debugger_2022" Name="Debugger">
                             <Directory Id="Visualizers_2022" Name="Visualizers">
-                                <Directory Id="Visualizers_2022_Net20" Name="net2.0" />
-                                <Directory Id="Visualizers_2022_NetCoreApp" Name="netcoreapp" />
+                                <Directory Id="Visualizers_2022_Net462" Name="net4.6.2" />
+                              <Directory Id="Visualizers_2022_NetCoreApp" Name="netcoreapp" />
                             </Directory>
                         </Directory>
                     </Directory>
@@ -413,10 +413,10 @@
         <File Id="ImageVisualizer2022CommonDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Source="$(var.ImageVisualizer17.UI.TargetDir)Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Checksum="yes" />
       </Component>
     </ComponentGroup>
-      <ComponentGroup Id="ImageVisualizer2022Net20Components" Directory="Visualizers_2022_Net20">
-      <Component Id="ImageVisualizer2022Net20DllComponent" Guid="6AA83B51-E746-4711-B7DA-63FEADF3FAB3" Transitive="yes" Win64="yes">
-        <File Id="ImageVisualizer2022Net20CommonDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Source="$(var.ImageVisualizer17.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer17.DebuggeeSide.Configuration)\net40\Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Checksum="yes" />
-        <File Id="ImageVisualizer2022Net20DebuggeeSideDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" Source="$(var.ImageVisualizer17.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer17.DebuggeeSide.Configuration)\net40\Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" KeyPath="yes" Checksum="yes" />
+      <ComponentGroup Id="ImageVisualizer2022Net462Components" Directory="Visualizers_2022_Net462">
+      <Component Id="ImageVisualizer2022Net462DllComponent" Guid="6AA83B51-E746-4711-B7DA-63FEADF3FAB3" Transitive="yes" Win64="yes">
+        <File Id="ImageVisualizer2022Net462CommonDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Source="$(var.ImageVisualizer17.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer17.DebuggeeSide.Configuration)\net40\Aberus.VisualStudio.Debugger.ImageVisualizer.Common.dll" Checksum="yes" />
+        <File Id="ImageVisualizer2022Net462DebuggeeSideDll" Name="Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" Source="$(var.ImageVisualizer17.DebuggeeSide.ProjectDir)bin\$(var.ImageVisualizer17.DebuggeeSide.Configuration)\net40\Aberus.VisualStudio.Debugger.ImageVisualizer.DebuggeeSide.dll" KeyPath="yes" Checksum="yes" />
       </Component>
     </ComponentGroup>
     <ComponentGroup Id="ImageVisualizer2022NetCoreAppComponents" Directory="Visualizers_2022_NetCoreApp">

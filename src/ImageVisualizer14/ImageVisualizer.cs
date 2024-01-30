@@ -30,6 +30,14 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
     /// </summary>
     public class ImageVisualizer : DialogDebuggerVisualizer
     {
+
+#if VS17
+        public ImageVisualizer() : base(FormatterPolicy.Legacy)
+        {
+
+        }
+#endif
+
         protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider)
         {
             if (windowService == null)
@@ -42,7 +50,6 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 #endif
             using (var imageForm = new ImageForm(objectProvider))
             {
-
                  windowService.ShowDialog(imageForm);
             }
         }

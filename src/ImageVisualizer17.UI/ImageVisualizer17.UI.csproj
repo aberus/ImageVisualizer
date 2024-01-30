@@ -39,7 +39,7 @@
     </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
-      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -95,14 +95,14 @@
       <Project>{14eeba2b-b2b1-491b-800e-bcc181cfb8fc}</Project>
       <Name>ImageVisualizer17.Common</Name>
     </ProjectReference>
-	<ProjectReference Include="..\ImageVisualizer17.DebuggeeSide\ImageVisualizer17.DebuggeeSide.csproj">
+    <ProjectReference Include="..\ImageVisualizer17.DebuggeeSide\ImageVisualizer17.DebuggeeSide.csproj">
       <Project>{2faa5bdc-192b-4eb7-a7d1-f69f74be8223}</Project>
       <Name>ImageVisualizer17.DebuggeeSide</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.DpiAwareness">
-      <Version>7.1.32210</Version>
+      <Version>7.5.33428</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
