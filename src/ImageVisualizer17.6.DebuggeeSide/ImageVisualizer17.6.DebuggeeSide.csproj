@@ -11,12 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\ImageVisualizer14\ImageVisualizerObjectSource.cs" Link="ImageVisualizerObjectSource.cs" />
-    <Compile Include="..\ImageVisualizer16.DebuggeeSide\ImageVisualizerBitmapObjectSource.cs" Link="ImageVisualizerBitmapObjectSource.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ImageVisualizer17.Common\ImageVisualizer17.Common.csproj" />
+    <ProjectReference Include="..\ImageVisualizer17.6.Common\ImageVisualizer17.6.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
@@ -25,7 +20,7 @@
       <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Packages\Debugger\Visualizers\netstandard2.0\Microsoft.VisualStudio.DebuggerVisualizers.dll</HintPath>
     </Reference>
   </ItemGroup>
-  
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers">
       <Private>False</Private>

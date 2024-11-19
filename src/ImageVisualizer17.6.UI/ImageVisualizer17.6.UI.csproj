@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9432AFAF-EEBD-424B-A181-271E9F2A00F7}</ProjectGuid>
+    <ProjectGuid>{07BD2160-ED5E-4B91-A948-A99400AD4F53}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Aberus.VisualStudio.Debugger.ImageVisualizer</RootNamespace>
@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;VS17</DefineConstants>
+    <DefineConstants>TRACE;VS17_6</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -91,19 +91,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImageVisualizer17.Common\ImageVisualizer17.Common.csproj">
-      <Project>{14eeba2b-b2b1-491b-800e-bcc181cfb8fc}</Project>
-      <Name>ImageVisualizer17.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ImageVisualizer17.DebuggeeSide\ImageVisualizer17.DebuggeeSide.csproj">
-      <Project>{2faa5bdc-192b-4eb7-a7d1-f69f74be8223}</Project>
-      <Name>ImageVisualizer17.DebuggeeSide</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.DpiAwareness">
       <Version>7.1.32210</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ImageVisualizer17.6.Common\ImageVisualizer17.6.Common.csproj">
+      <Project>{2f389236-8d1b-4410-85a9-6cdea95a0b38}</Project>
+      <Name>ImageVisualizer17.6.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageVisualizer17.6.DebuggeeSide\ImageVisualizer17.6.DebuggeeSide.csproj">
+      <Project>{1258707d-e75f-44ca-a5b8-9eb6151f10d1}</Project>
+      <Name>ImageVisualizer17.6.DebuggeeSide</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

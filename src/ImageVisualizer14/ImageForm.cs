@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
-using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace Aberus.VisualStudio.Debugger.ImageVisualizer
 {
@@ -33,7 +33,7 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                 string dteProgID = "VisualStudio.DTE.15.0";
 #elif VS16
                 string dteProgID = "VisualStudio.DTE.16.0";
-#elif VS17
+#elif VS17 || VS17_6
                 string dteProgID = "VisualStudio.DTE.17.0";
 #endif
                 var dte = (EnvDTE.DTE)Marshal.GetActiveObject(dteProgID);
@@ -53,7 +53,7 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
             }
         }
 
-        public ImageForm(IVisualizerObjectProvider objectProvider)
+        public ImageForm(object objectBitmap)
         {
             InitializeComponent();
 
@@ -67,21 +67,40 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
             this.txtExpression.Font = UIFont;
             this.btnClose.Font = UIFont;
 
-            object objectBitmap = objectProvider.GetObject();
             if (objectBitmap != null)
             {
 #if DEBUG
                 string expression = objectBitmap.ToString();
 #endif
+                BitmapSource bitmapSource = null;
 
+#if VS17_6       
+                if (objectBitmap is ImageVisualizerImage visualizerImage)
+                {
+                    txtExpression.Text = visualizerImage.Name + (visualizerImage.Image?.Length ?? -1);
+
+                    if (visualizerImage.Image != null)
+                    {
+                        var stream = new MemoryStream(visualizerImage.Image);
+                        stream.Seek(0, SeekOrigin.Begin);
+
+                        var bitmapImage = new BitmapImage();
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmapImage.BeginInit();
+                        bitmapImage.StreamSource = stream;
+                        bitmapImage.EndInit();
+                        bitmapImage.Freeze();
+
+                        bitmapSource = bitmapImage;
+                    }
+                }
+#else
                 var method = objectBitmap.GetType().GetMethod("ToBitmap", new Type[] { });
                 if (method != null)
                 {
                     objectBitmap = method.Invoke(objectBitmap, null);
                 }
                 
-                BitmapSource bitmapSource = null;
-
                 if (objectBitmap is Bitmap)
                 {
                     var hObject = ((Bitmap)objectBitmap).GetHbitmap();
@@ -104,7 +123,7 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                     }
                 }
 #if VS16 || VS17
-                else if(objectBitmap is SerializableBitmap x)
+                else if (objectBitmap is SerializableBitmap x)
                 {
                     var hObject = ((Bitmap)x).GetHbitmap();
 
@@ -130,14 +149,15 @@ namespace Aberus.VisualStudio.Debugger.ImageVisualizer
                 {
                     bitmapSource = serializableBitmapImage;
                 }
+#endif
 
                 if (bitmapSource != null)
                 {
                     imageControl.SetImage(bitmapSource);
                 }
+
+                txtExpression.Text = objectBitmap.ToString();
             }
-     
-            txtExpression.Text = objectProvider.GetObject().ToString();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

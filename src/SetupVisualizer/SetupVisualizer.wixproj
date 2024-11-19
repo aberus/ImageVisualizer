@@ -92,6 +92,22 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\ImageVisualizer17.6.DebuggeeSide\ImageVisualizer17.6.DebuggeeSide.csproj">
+      <Name>ImageVisualizer17.6.DebuggeeSide</Name>
+      <Project>{1258707d-e75f-44ca-a5b8-9eb6151f10d1}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageVisualizer17.6.UI\ImageVisualizer17.6.UI.csproj">
+      <Name>ImageVisualizer17.6.UI</Name>
+      <Project>{07bd2160-ed5e-4b91-a948-a99400ad4f53}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\ImageVisualizer17.DebuggeeSide\ImageVisualizer17.DebuggeeSide.csproj">
       <Name>ImageVisualizer17.DebuggeeSide</Name>
       <Project>{2faa5bdc-192b-4eb7-a7d1-f69f74be8223}</Project>
@@ -111,6 +127,14 @@
     <ProjectReference Include="..\ImageVisualizerPackage\ImageVisualizerPackage.csproj">
       <Name>ImageVisualizerPackage</Name>
       <Project>{fb4c20b3-659c-4d7e-9832-7bfb165df2e0}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\VSVersionAction\VSVersionAction.csproj">
+      <Name>VSVersionAction</Name>
+      <Project>{b84984be-b51a-4eb3-bca0-9476a7c60f18}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
